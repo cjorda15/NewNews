@@ -53,8 +53,8 @@ app.get('/api/v1/news', (request, response) => {
     });
 });
 
-app.get('/api/v1/news/:id', (request, response) => {
-  database('news').where('id', request.params.id).select()
+app.get('/api/v1/news/:source', (request, response) => {
+  database('news').where('source', request.params.source).select()
     .then(news => {
       response.status(200).json(news);
     })
@@ -65,15 +65,15 @@ app.get('/api/v1/news/:id', (request, response) => {
 
 
 
-app.post('/api/v1/news', (request, response) => {
-  const news = {source: 'msnbc', conservative: 5, liberal: 2}
-
-
-  database('news').insert(news)
-    .then(news => {
-      console.log(news)
-    })
-    .catch(error => {
-      console.error('error: ', error);
-    });
-});
+// app.post('/api/v1/news', (request, response) => {
+//   const news = {source: 'msnbc', conservative: 5, liberal: 2}
+//
+//
+//   database('news').insert(news)
+//     .then(news => {
+//       console.log(news)
+//     })
+//     .catch(error => {
+//       console.error('error: ', error);
+//     });
+// });
