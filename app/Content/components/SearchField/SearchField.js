@@ -14,7 +14,6 @@ class SearchField extends Component {
       const {articles} = data
       this.props.handleAddArticles(articles)
       })
-      .catch(e => console.log(e))
     }
 
   render(){

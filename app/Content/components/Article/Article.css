@@ -1,0 +1,92 @@
+.article-cards{
+  display: flex;
+  z-index: 1;
+  flex-direction: column;
+  height: 425px;
+  width:300px;
+  margin-bottom: 10px;
+  padding: 10px;
+  opacity: 0.9;
+  box-shadow: #000 1px 1px 1px 1px;
+  border-radius: 20px;
+}
+
+.card-content{
+  width:95%;
+  height: 85%;
+  color: #fff;
+  text-shadow: #000 2px 2px 1px;
+  font-size:14px;
+}
+
+.bottom-card-content{
+  color:#000;
+  padding-left:2px;
+  font-size:15px;
+}
+
+.top-of-card, .bottom-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+  font-weight: 100;
+  flex:1;
+}
+
+.top-of-card{
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 3px;
+}
+
+.bottom-card{
+  flex: 1;
+  font-size:20px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.middle-of-card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0,0,0,0.9);
+  font-weight: 300;
+}
+
+
+.middle-of-card-link{
+  text-decoration: underline;
+  color: #fff;
+  padding: 5px;
+}
+
+.middle-of-card-button{
+  width: 30px;
+  height:30px;
+  background-size: contain;
+  border:1px solid #000;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+
+.commentBtn{
+  background-image: url("../icons/Comments-50.png");
+}
+
+.likeBtn{
+  background-image: url('../icons/Hearts-48.png');
+}
+
+
+.card-background-container{
+background-color: black;
+padding: 2px;
+border-radius: 10px;
+opacity: 0.8;
+}
+
+a:hover{
+  color:yellow;
+}
