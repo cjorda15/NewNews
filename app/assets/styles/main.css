@@ -2,6 +2,10 @@ body {
   background: #f4f4f4;
   font-family: sans-serif;
   font-weight: 100;
+  background-image: url('./backgroundImage/maxresdefault.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #main h1 {

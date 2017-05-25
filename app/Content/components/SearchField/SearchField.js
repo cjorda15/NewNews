@@ -3,6 +3,7 @@ import ListSourceContainer from '../ListSource/ListSourceContainer'
 import ListCriteriaContainer from '../ListCriteria/ListCriteriaContainer'
 import ListSourceConContainer from '../ListSource/ListSourceConContainer'
 import ListSourceLibContainer from '../ListSource/ListSourceLibContainer'
+import styles from './SearchField.css'
 
 class SearchField extends Component {
   constructor(props){
@@ -20,7 +21,7 @@ class SearchField extends Component {
     }
 
   blah(){
-    fetch(`http://localhost:3000/api/v1/news`)
+    fetch(`http://localhost:3000/api/v1/news/abc`)
       .then(response => response.json()).then(response => console.log(response))
   }
 
@@ -59,7 +60,6 @@ class SearchField extends Component {
         3
         </div>
         <button onClick={()=>{this.handleClick()}}>Submit</button>
-        <button onClick={()=>{this.blah()}}>grr</button>
       </div>
     </div>
     )

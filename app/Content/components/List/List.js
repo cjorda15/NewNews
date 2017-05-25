@@ -1,5 +1,5 @@
 import React from 'react'
-import Article from '../Article/Article'
+import ArticleContainer from '../Article/ArticleContainer'
 import styles from './List.css'
 
 const List = ({articles}) => {
@@ -7,7 +7,7 @@ const List = ({articles}) => {
   const renderList = () => {
     return articles.map((article,index) =>{
       return (
-        <Article index={index} key={index} article={article}/>
+        <ArticleContainer index={index} key={index} article={article}/>
       )
     })
   }
