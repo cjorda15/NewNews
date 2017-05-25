@@ -9,7 +9,6 @@ import promiseMiddleware from 'redux-promise'
 import createHistory from 'history/createBrowserHistory'
 
 
-
 import Content from './Content/Content'
 import rootReducer from './Content/reducers'
 
