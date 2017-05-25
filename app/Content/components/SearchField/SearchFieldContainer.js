@@ -4,7 +4,8 @@ import {addArticles} from '../../actions'
 
 const mapStateToProps = (state) => {
   return {
-    source:state.source
+    source:state.source,
+    criteria:state.searchCriteria
   }
 }
 

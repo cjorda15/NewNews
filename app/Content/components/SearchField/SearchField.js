@@ -1,5 +1,8 @@
 import React,{Component} from 'react';
 import ListSourceContainer from '../ListSource/ListSourceContainer'
+import ListCriteriaContainer from '../ListCriteria/ListCriteriaContainer'
+import ListSourceConContainer from '../ListSource/ListSourceConContainer'
+import ListSourceLibContainer from '../ListSource/ListSourceLibContainer'
 
 class SearchField extends Component {
   constructor(props){
@@ -16,6 +19,26 @@ class SearchField extends Component {
       })
     }
 
+  blah(){
+    fetch(`http://localhost:3000/api/v1/news`)
+      .then(response => response.json()).then(response => console.log(response))
+  }
+
+  listSource(){
+    switch(this.props.criteria){
+      case 'alphabetical':
+        return <ListSourceContainer/>
+      case 'most conservative':
+        return <ListSourceConContainer/>
+      case 'most liberal':
+          return <ListSourceLibContainer/>
+      default:
+        return  <ListSourceContainer/>
+      }
+    }
+
+
+
   render(){
     return(
     <div className="search-field-container">
@@ -23,33 +46,25 @@ class SearchField extends Component {
         <div className="search-container-number">
         1
         </div>
-          <select>
-            <option>
-              alphabetical
-            </option>
-            <option>
-              most conservative
-            </option>
-            <option>
-              most liberal
-            </option>
-          </select>
+        <ListCriteriaContainer/>
       </div>
       <div className="search-container-list">
       <div className="search-container-number">
         2
       </div>
-        <ListSourceContainer/>
+      {this.listSource()}
       </div>
       <div className="search-button-container">
         <div className="search-container-number">
         3
         </div>
         <button onClick={()=>{this.handleClick()}}>Submit</button>
+        <button onClick={()=>{this.blah()}}>grr</button>
       </div>
     </div>
     )
   }
 }
+
 
 export default SearchField

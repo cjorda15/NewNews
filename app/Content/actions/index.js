@@ -12,3 +12,17 @@ export const addSource = (source) => {
     source
   }
 }
+
+export const changeCriteria = (criteria) => {
+  return{
+    type:'CHANGE_CRITERIA',
+    payload:criteria
+  }
+}
+
+export const buildList = (list) => {
+  return{
+  type:"BUILD_LIST",
+  payload:list
+  }
+}
