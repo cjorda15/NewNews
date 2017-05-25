@@ -55,6 +55,26 @@
   font-weight: 300;
 }
 
+.middle-of-card-button{
+  background-repeat: none;
+  background-size: cover;
+}
+
+.conservative{
+
+}
+
+.conservative:hover{
+
+}
+
+.liberal{
+
+}
+
+.liberal:hover{
+
+}
 
 .middle-of-card-link{
   text-decoration: underline;
@@ -79,5 +99,6 @@ opacity: 0.8;
 }
 
 a:hover{
-  color:yellow;
+  color:cornflowerblue;
+  transition: all .3s
 }

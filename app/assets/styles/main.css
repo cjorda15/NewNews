@@ -19,3 +19,9 @@ body {
 #main {
   text-align: center;
 }
+
+.content{
+  max-width: 1400px;
+  margin: 0px auto;
+
+}

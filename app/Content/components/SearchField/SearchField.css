@@ -1,8 +1,27 @@
 .search-container-criteria, .search-container-list,
-.search-container-number{
-  
+.search-button-container{
+padding-top: 15px;
 }
 
-.search-container-number{
+.search-container-criteria select, .search-container-list select{
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+}
 
+
+.search-button-container button{
+  background-color: cornflowerblue;
+  outline: none;
+  width: 89px;
+  height: 44px;
+  color:#fff;
+  border: 1px #000 solid;
+}
+
+.search-button-container button:hover{
+  border: 1px white solid;
+  border-radius: 5px;
+  color:#000;
+  transition: all .5s
 }

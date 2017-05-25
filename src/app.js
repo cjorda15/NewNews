@@ -63,35 +63,46 @@ app.get('/api/v1/news/:source', (request, response) => {
     });
 });
 
-app.put('/api/v1/news/:source', (request, responce) =>{
-  database('products')
-  .whereIn('source', 'source')
-  .update({
-    'updated_at': new Date(),
-    'conservative': knex.raw('conservative + 1')
-  });
-
+app.put('http://localhost:3000/api/v1/news/:source',(req,res) => {
+  console.log(req, "req")
+  console.log(res, "res")
 })
 
-// database('news').update({
-//   LISTID: knex('news').select('source').where('source',
-// knex.raw(++))
-// })
-//
-//
-// }  fetch(`http://localhost:3000/api/v1/news/${source}`, {
-//     method: "PUT",
-//     headers: {"Content-Type": "application/json"},
-//     body: JSON.stringify({
-//           source: source,
-//           conservative: 10000,
-//           liberal:999999
-//         })
-//   })
-//   .then(response => response.json())
-//   .then( res => {
-//     console.log(res)
-//   })
+
+ // fetch(`http://localhost:3000/api/v1/news/:source`, {
+ //    method: "PUT",
+ //    headers: {"Content-Type": "application/json"},
+ //    body: JSON.stringify({
+ //          source: source,
+ //          conservative: 10000,
+ //          liberal:999999
+ //        })
+ //  })
+ //  .then(response => response.json())
+ //  .then( res => {
+ //    console.log(res)
+ //  })
+
+  // app.put('/api/v1/news/:source', (request, responce) =>{
+  //   database('news').where('source', request.params.source).select()
+  //   .update({
+  //     'updated_at': new Date(),
+  //     'conservative': knex.raw('conservative + 1')
+  //   });
+  //
+  // })
+  //
+  // knex('Attributes').update({
+  //   ListID: knex('List').select('ID').where('OriginID', knex.raw('??', ['Attributes.OriginList']))
+  // })
+
+  // database('news').update({
+  //   LISTID: knex('news').select('source').where('source',
+  // knex.raw(++))
+  // })
+  //
+  //
+  // }
 
   //   knex('Attributes').update({
   // ListID: knex('List').select('ID').where('OriginID', knex.raw('??', ['Attributes.OriginList']))

@@ -44,21 +44,12 @@ class SearchField extends Component {
     return(
     <div className="search-field-container">
       <div className="search-container-criteria">
-        <div className="search-container-number">
-        1
-        </div>
         <ListCriteriaContainer/>
       </div>
       <div className="search-container-list">
-      <div className="search-container-number">
-        2
-      </div>
       {this.listSource()}
       </div>
       <div className="search-button-container">
-        <div className="search-container-number">
-        3
-        </div>
         <button onClick={()=>{this.handleClick()}}>Submit</button>
       </div>
     </div>
