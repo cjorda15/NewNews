@@ -16,8 +16,8 @@ const Article = ({article}) => {
       <div className = "middle-of-card">
         <a className = "middle-of-card-link" href={article.url}>link to article</a>
         <div className = "middle-of-card-button-container">
-          <button className= "middle-of-card-button commentBtn">10</button>
-          <button className= "middle-of-card-button likeBtn">3</button>
+          <button className= "middle-of-card-button conservative">conservative</button>
+          <button className= "middle-of-card-button liberal">liberal</button>
         </div>
       </div>
       <div className = "bottom-card">

@@ -1,0 +1,6 @@
+.list-container{
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding:15px;
+  display: flex;
+}

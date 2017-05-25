@@ -1,5 +1,6 @@
 import React from 'react'
 import Article from '../Article/Article'
+import styles from './List.css'
 
 const List = ({articles}) => {
 
@@ -13,7 +14,7 @@ const List = ({articles}) => {
 
   return(
     <main className="list-container">
-    { articles ? renderList(): <div>asdfasf</div> }
+    { articles ? renderList(): null }
     </main>
   )
 }

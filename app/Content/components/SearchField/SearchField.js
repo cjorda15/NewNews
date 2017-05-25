@@ -45,7 +45,7 @@ class SearchField extends Component {
         <div className="search-container-number">
         3
         </div>
-        <button onClick={()=>{this.handleClick()}}></button>
+        <button onClick={()=>{this.handleClick()}}>Submit</button>
       </div>
     </div>
     )

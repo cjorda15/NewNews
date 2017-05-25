@@ -1,4 +1,4 @@
-.article-cards{
+.article{
   display: flex;
   z-index: 1;
   flex-direction: column;
@@ -69,16 +69,6 @@
   background-color: #fff;
   border-radius: 5px;
 }
-
-
-.commentBtn{
-  background-image: url("../icons/Comments-50.png");
-}
-
-.likeBtn{
-  background-image: url('../icons/Hearts-48.png');
-}
-
 
 .card-background-container{
 background-color: black;
