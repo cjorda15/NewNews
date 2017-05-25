@@ -14,7 +14,7 @@ const List = ({articles}) => {
 
   return(
     <main className="list-container">
-    { articles ? renderList(): null }
+    { articles ? renderList() : null }
     </main>
   )
 }

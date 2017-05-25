@@ -11,19 +11,16 @@ class SearchField extends Component {
     this.state = {}
   }
 
+
   handleClick(){
     const endpoint =
- `https://newsapi.org/v1/articles?source=${this.props.source}&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
+    `https://newsapi.org/v1/articles?source=${this.props.source}&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
     fetch(endpoint).then(resp =>resp.json()).then(data => {
       const {articles} = data
       this.props.handleAddArticles(articles)
-      })
-    }
-
-  blah(){
-    fetch(`http://localhost:3000/api/v1/news/abc`)
-      .then(response => response.json()).then(response => console.log(response))
+    })
   }
+
 
   listSource(){
     switch(this.props.criteria){
@@ -43,8 +40,8 @@ class SearchField extends Component {
   render(){
     return(
     <div className="search-field-container">
-      <div className="search-container-criteria">
-        <ListCriteriaContainer/>
+    <div className="search-container-criteria">
+    <ListCriteriaContainer/>
       </div>
       <div className="search-container-list">
       {this.listSource()}

@@ -63,10 +63,20 @@ app.get('/api/v1/news/:source', (request, response) => {
     });
 });
 
-app.put('http://localhost:3000/api/v1/news/:source',(req,res) => {
-  console.log(req, "req")
-  console.log(res, "res")
-})
+app.put('/api/v1/news',(req,res) => {
+      console.log(req.body);
+      database('news').where('source', req.body.source).select()
+      .update({
+        'updated_at': req.body.date,
+        [req.body.type]: database.raw(`${req.body.type} + 1`)
+      })
+      .then(news => {
+        res.status(200).json(news)
+      })
+    })
+
+
+//
 
 
  // fetch(`http://localhost:3000/api/v1/news/:source`, {

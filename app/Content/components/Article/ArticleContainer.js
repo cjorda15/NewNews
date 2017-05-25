@@ -4,7 +4,8 @@ import Article from './Article'
 
 const mapStateToProps = (state) => {
   return{
-    source:state.source
+    source:state.source,
+    list:state.buildList,
   }
 }
 
