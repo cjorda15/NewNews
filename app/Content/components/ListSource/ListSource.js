@@ -1,0 +1,115 @@
+import React, {Component} from 'react'
+
+class ListSource extends Component {
+
+render(){
+
+return (
+  <select onChange={(e)=>{this.props.handleAddSource(e.target.value)}} >
+    <option>
+      abc-news-au
+    </option>
+    <option>
+      al-jazeera-english
+    </option>
+      associated-press
+    <option>
+      bbc-news
+    </option>
+    <option>
+      bloomberg
+    </option>
+    <option>
+    breitbart-news
+    </option>
+    <option>
+      business-insider
+    </option>
+    <option>
+      buzzfeed
+    </option>
+    <option>
+      cnbc
+    </option>
+    <option>
+      cnn
+    </option>
+    <option>
+      daily-mail
+    </option>
+    <option>
+      entertainment-weekly
+    </option>
+    <option>
+      financial-times
+    </option>
+    <option>
+      fortune
+    </option>
+      google-news
+    <option>
+      hacker-news
+    </option>
+    <option>
+      independent
+    </option>
+    <option>
+      metro
+    </option>
+    <option>
+      mirror
+    </option>
+    <option>
+      mtv-news
+    </option>
+    <option>
+      mtv-news-uk
+    </option>
+    <option>
+      national-geographic
+    </option>
+    <option>
+      newsweek
+    </option>
+    <option>
+      new-york-magazine
+    </option>
+    <option>
+      reddit-r-all
+    </option>
+    <option>
+      the-economist
+    </option>
+    <option>
+      the-guardian-uk
+    </option>
+    <option>
+      the-huffington-post
+    </option>
+    <option>
+      the-new-york-times
+    </option>
+    <option>
+      the-telegraph
+    </option>
+    <option>
+      the-times-of-india
+    </option>
+    <option>
+      the-wall-street-journal
+    </option>
+    <option>
+      the-washington-post
+    </option>
+    <option>
+      time
+    </option>
+    <option>
+      usa-today
+    </option>
+  </select>
+ )
+ }
+}
+
+export default ListSource
