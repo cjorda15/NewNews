@@ -10,21 +10,19 @@ const Article = ({article,source,list}) => {
      const useSourse = list.filter(item => {
       return source===item.source? item:null
      })
-     console.log(useSourse)
 
       const date =  Date.now()
       fetch(`http://localhost:3000/api/v1/news`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          source: source,
+          id: useSourse[0].id,
           type: type,
           updated_at:date
         })
       })
       .then( response => response.json())
       .then( res => {
-        console.log(res)
       })
 
 }
