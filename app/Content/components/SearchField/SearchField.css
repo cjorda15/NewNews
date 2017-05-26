@@ -22,6 +22,5 @@ padding-top: 15px;
 .search-button-container button:hover{
   border: 1px white solid;
   border-radius: 5px;
-  color:#000;
   transition: all .5s
 }
