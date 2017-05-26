@@ -26,3 +26,10 @@ export const buildList = (list) => {
   payload:list
   }
 }
+
+export const addUser = (user) => {
+  return{
+    type:"ADD_USER",
+    user
+  }
+}

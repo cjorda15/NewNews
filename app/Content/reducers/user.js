@@ -1,5 +1,12 @@
 const user = (state=null,action) => {
-  return state
+  switch(action.type){
+    case 'ADD_USER':
+      return action.user
+
+    default:
+      return state
+
+  }
 }
 
 export default user;
