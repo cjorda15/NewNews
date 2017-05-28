@@ -9,7 +9,7 @@ const router = require('./router');
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../knexfile')[environment];
 const database = require('knex')(configuration);
-
+const knex = "knex"
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -72,3 +72,27 @@ app.put('/api/v1/news',(req,res) => {
         console.log('error', error)
       })
     })
+
+    app.get('/api/v1/user/', (request, response) => {
+      database('user').select()
+        .then(user => {
+          console.log(user)
+          response.status(200).json(user);
+        })
+        .catch(error => {
+          console.error('error: ', error)
+        });
+    });
+
+    app.post('/api/v1/user', (request, response) => {
+  const user = request.body;
+  console.log(user)
+  database('user').insert(user)
+    .then(user => {
+      response.status(201).json(user)
+      console.log(user)
+    })
+    .catch(error => {
+      console.error('error: ', error);
+    });
+});
