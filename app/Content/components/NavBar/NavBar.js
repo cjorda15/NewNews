@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom'
 import styles from  './NavBar.css'
 
 
-const NavBar = props => {
+const NavBar = ({user}) => {
 
   const renderNavBar = () => {
-    return props.user?(
+    return user?(
     <div className="nav-bar-container">
-      <NavLink className="nav-link center" activeClassName='selected' to={'/logout'}> logout </NavLink>
+      <NavLink className="nav-link center" activeClassName='selected' to={'/logout'}> logout  ({ ( user.name )}) </NavLink>
       <NavLink className="nav-link" activeClassName='selected' to={'/favorites'}> favorites </NavLink>
       <NavLink className="nav-link" activeClassName='selected' to={'/'}> Home </NavLink>
     </div>)
