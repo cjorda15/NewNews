@@ -1,9 +1,24 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-const ListSourceLib = ({list,handleAddSource}) => {
+class ListSourceLib extends  Component{
+  constructor(props){
+    super(props)
+  }
 
-  const renderList = () => {
-    const libList = list.reduce((acc,source) =>{
+ componentDidMount(){
+   const libList = this.props.list.reduce((acc,source) =>{
+     acc.push({libValue:source.liberal - source.conservative, source:source.source})
+     return acc
+     },[])
+
+   libList.sort(function(a,b){
+     return b.libValue - a.libValue
+   })
+   this.props.handleAddSource(libList[0].source)
+ }
+
+   renderList (){
+    const libList = this.props.list.reduce((acc,source) =>{
       acc.push({libValue:source.liberal - source.conservative, source:source.source})
       return acc
       },[])
@@ -15,13 +30,16 @@ const ListSourceLib = ({list,handleAddSource}) => {
       return <option key={id}>{obj.source}</option>
     })
   }
+  render(){
+
 
   return(
-    <select onChange={(e)=>{handleAddSource(e.target.value)}} >
-      {renderList()}
+    <select onChange={(e)=>{this.props.handleAddSource(e.target.value)}} >
+      {this.renderList()}
     </select>
   )
-}
+  }
+ }
 
 
 export default ListSourceLib
