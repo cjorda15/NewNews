@@ -59,6 +59,7 @@ class SignUp extends Component {
             })
             if(!inUse){
               this.createUser()
+              this.props.handleAddUser(this.state.name)
               this.props.history.replace('/')
 
             }

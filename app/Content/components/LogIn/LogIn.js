@@ -13,6 +13,8 @@ class LogIn extends Component {
 
   handleOnClick(){
     let loggedIn = false
+    let id ;
+    let name;
     fetch(`http://localhost:3000/api/v1/user`)
     .then(response => response.json())
     .then(response => {
@@ -21,20 +23,24 @@ class LogIn extends Component {
             if(this.state.password !== account.password){
               this.setState({error:"wrong password"})
             }else{
+              name = account.name
+              id = account.id
               loggedIn = true
               }
+            }else{
+              this.setState({error:"no user by that name.."})
             }
           })
           if(loggedIn){
-            this.props.history.replace('/')
-
+            this.props.handleAddUser({name ,id })
+            this.props.history.history.replace('/')
           }
         }).catch(error => console.log(error))
     }
 
     render(){
       return(
-        <div className="LogIn">
+        <div className="login">
           <input
             value = {this.state.name}
             onChange={(e) => {this.setState({name:e.target.value})}}
@@ -44,7 +50,7 @@ class LogIn extends Component {
             onChange={(e) => {this.setState({password:e.target.value})}}
             placeholder="enter your password"/>
           <button onClick={() => this.handleOnClick()}>submit</button>
-          <div>
+          <div className="error-message">
             {this.state.error}
           </div>
         </div>

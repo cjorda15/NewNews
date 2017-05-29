@@ -5,8 +5,8 @@ import Header  from './components/Header/Header.js'
 import MainContent from './components/MainContent/MainContent'
 import { Route, Link, Switch } from 'react-router-dom'
 import SignUpContainer from './components/SignUp/SignUpContainer'
-import NavBar from './components/NavBar/NavBar'
-import LogIn from './components/LogIn/LogIn'
+import NavBarContainer from './components/NavBar/NavBarContainer'
+import LogInContainer from './components/LogIn/LogInContainer'
 
 
 class Content extends Component {
@@ -24,11 +24,11 @@ componentDidMount(){
 render(){
   return(
       <div className="content">
-        <NavBar/>
+        <NavBarContainer/>
         <Header/>
 
         <Switch>
-          <Route path="/login" render={(history) =>  <LogIn history={history}/> }/>
+          <Route path="/login" render={(history) =>  <LogInContainer history={history}/> }/>
           <Route path="/signup" render={({ history }) => <SignUpContainer history={history}/>}/>
           <Route path="/" render={({ history }) =>
           <MainContent history ={history}/> } />

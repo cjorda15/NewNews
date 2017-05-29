@@ -28,6 +28,7 @@ export const buildList = (list) => {
 }
 
 export const addUser = (user) => {
+  console.log("action")
   return{
     type:"ADD_USER",
     user

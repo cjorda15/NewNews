@@ -5,7 +5,7 @@ import {addUser} from '../../actions'
 const mapDispatchToProps = (dispatch) => {
   return {
     handleAddUser:(user) => {
-      dispatch(add)
+      dispatch(addUser(user))
     }
   }
 }
