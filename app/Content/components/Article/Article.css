@@ -70,7 +70,12 @@
   padding: 5px;
 }
 
-.middle-of-card-img:hover{
+.con-img:hover{
+  background-color: #f15a49;
+  transition: all .3s
+}
+
+.lib-img:hover{
   background-color: cornflowerblue;
   transition: all .3s
 }

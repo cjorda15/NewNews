@@ -7,7 +7,7 @@ class Header extends Component {
     return(
       <div className="header-container">
         <div className="header">
-          new news
+          new News
         </div>
       </div>
     )

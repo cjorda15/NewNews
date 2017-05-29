@@ -43,12 +43,12 @@ const Article = ({article,source,list}) => {
         <div className = "middle-of-card-button-container">
           <img
             onClick={() => handleOnClick('conservative')}
-            className= "middle-of-card-img"
+            className= "middle-of-card-img con-img"
             src={'https://d30y9cdsu7xlg0.cloudfront.net/png/29046-200.png'}
           />
           <img
             onClick={() => handleOnClick('liberal')}
-            className= "middle-of-card-img"
+            className= "middle-of-card-img lib-img"
             src={`https://d30y9cdsu7xlg0.cloudfront.net/png/66721-200.png`}/>
         </div>
       </div>
