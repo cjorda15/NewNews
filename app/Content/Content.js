@@ -7,7 +7,7 @@ import { Route, Link, Switch } from 'react-router-dom'
 import SignUpContainer from './components/SignUp/SignUpContainer'
 import NavBarContainer from './components/NavBar/NavBarContainer'
 import LogInContainer from './components/LogIn/LogInContainer'
-
+import LogOutContainer from './components/LogOut/LogOutContainer'
 
 class Content extends Component {
     constructor(props){
@@ -28,6 +28,8 @@ render(){
         <Header/>
 
         <Switch>
+        <Route path="/logout" render={(history) =>  <LogOutContainer history={history}/> }/>
+
           <Route path="/login" render={(history) =>  <LogInContainer history={history}/> }/>
           <Route path="/signup" render={({ history }) => <SignUpContainer history={history}/>}/>
           <Route path="/" render={({ history }) =>
