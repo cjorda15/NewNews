@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Article from '../Article/Article'
+import styles from './Favorites.css'
 
 class Favorites extends Component {
   constructor(props){
