@@ -8,6 +8,7 @@ import SignUpContainer from './components/SignUp/SignUpContainer'
 import NavBarContainer from './components/NavBar/NavBarContainer'
 import LogInContainer from './components/LogIn/LogInContainer'
 import LogOutContainer from './components/LogOut/LogOutContainer'
+import FavoritesContainer from './components/Favorites/FavoritesContainer'
 
 class Content extends Component {
     constructor(props){
@@ -32,6 +33,7 @@ render(){
 
           <Route path="/login" render={(history) =>  <LogInContainer history={history}/> }/>
           <Route path="/signup" render={({ history }) => <SignUpContainer history={history}/>}/>
+          <Route path="/favorites" render={({history}) => <FavoritesContainer history={history}/>}/>
           <Route path="/" render={({ history }) =>
           <MainContent history ={history}/> } />
 

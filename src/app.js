@@ -79,7 +79,7 @@ app.post('/api/v1/favorites',
    console.log(request.body);
    database('favorites').where({
       user_id:request.body.id
-   }).then(user=>console.log(user,"user"))
+   }).then(user=> response.send(user))
  })
 
 // ///database('user').insert(user,'id')
@@ -111,18 +111,18 @@ app.get('/api/v1/news/:source', (request, response) => {
     });
 });
 
-// app.put('/api/v1/news',(req,res) => {
-//   database('news').where('id', req.body.id).select()
-//    .update({
-//     'updated_at': req.body.date,
-//     [req.body.type]: database.raw(`${req.body.type} + 1`)
-//   })
-//    .then(news => {
-//     res.status(200).json(news)
-//   }).catch(error => {
-//     console.log('error', error)
-//   })
-// })
+app.put('/api/v1/news',(req,res) => {
+  database('news').where('id', req.body.id).select()
+   .update({
+    'updated_at': req.body.date,
+    [req.body.type]: database.raw(`${req.body.type} + 1`)
+  })
+   .then(news => {
+    res.status(200).json(news)
+  }).catch(error => {
+    console.log('error', error)
+  })
+})
 
 app.post('/api/v1/user', (request, response) => {
 

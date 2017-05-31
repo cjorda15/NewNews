@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Article.css'
 import knex from 'knex'
 
-const Article = ({article,source,list,user}) => {
+const Article = ({article,source,list,user,handleShowFavorites}) => {
 
 
   const handleOnClick = (type) => {
@@ -26,29 +26,13 @@ const Article = ({article,source,list,user}) => {
       })
 }
 
-  const handleSick = () => {
-      const d     = new Date()
-      const month = d.getMonth()+1
-      const day   = d.getDate()
-      const year  = d.getFullYear()
-
-      fetch(`http://localhost:3000/api/v1/favorites/favs`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          id: user.id
-        })
-      })
-      .then( response => response.json())
-      .then( res => {
-      })
-  }
-
-  const handleFavorites = () => {
+    const handleFavorites = () => {
     const d     = new Date()
     const month = d.getMonth()+1
     const day   = d.getDate()
     const year  = d.getFullYear()
+    console.log(user)
+    user.id?
 
     fetch(`http://localhost:3000/api/v1/favorites`, {
       method: "POST",
@@ -65,8 +49,10 @@ const Article = ({article,source,list,user}) => {
       })
     })
     .then( response => response.json())
-    .then( res => {
+    .then( res => { handleSick()
     })
+    :
+    alert("you must be logged in to favorite")
   }
 
   return(
@@ -83,7 +69,6 @@ const Article = ({article,source,list,user}) => {
         <a className = "middle-of-card-link" href={article.url}>link to article</a>
         <div className = "middle-of-card-button-container">
           <button onClick={()=>{handleFavorites()}}>Favorites</button>
-          <button onClick={()=>{handleSick()}}>ojasjoojsdo</button>
           <img
             onClick={() => handleOnClick('conservative')}
             className= "middle-of-card-img con-img"

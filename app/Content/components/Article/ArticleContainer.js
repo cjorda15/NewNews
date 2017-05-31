@@ -1,6 +1,6 @@
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Article from './Article'
-
+import { showFavorites } from '../../actions'
 
 const mapStateToProps = (state) => {
   return{
@@ -10,6 +10,13 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleShowFavorites: (input) =>{
+      dispatch(showFavorites(input))
+    }
+  }
+}
 
 
-export default connect(mapStateToProps)(Article)
+export default connect(mapStateToProps,mapDispatchToProps)(Article)

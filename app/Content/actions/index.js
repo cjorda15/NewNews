@@ -5,6 +5,13 @@ export const addArticles = (articles) => {
   }
 }
 
+export const showFavorites = (input) => {
+  return{
+    type:"SHOW_FAVORITES",
+    payload:input
+  }
+}
+
 
 export const addSource = (source) => {
   return{
