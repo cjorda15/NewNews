@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Article.css'
 import knex from 'knex'
 
-const Article = ({article,source,list}) => {
+const Article = ({article,source,list,user}) => {
 
 
   const handleOnClick = (type) => {
@@ -24,9 +24,50 @@ const Article = ({article,source,list}) => {
       .then( response => response.json())
       .then( res => {
       })
-
 }
 
+  const handleSick = () => {
+      const d     = new Date()
+      const month = d.getMonth()+1
+      const day   = d.getDate()
+      const year  = d.getFullYear()
+
+      fetch(`http://localhost:3000/api/v1/favorites/favs`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          id: user.id
+        })
+      })
+      .then( response => response.json())
+      .then( res => {
+      })
+  }
+
+  const handleFavorites = () => {
+    const d     = new Date()
+    const month = d.getMonth()+1
+    const day   = d.getDate()
+    const year  = d.getFullYear()
+
+    fetch(`http://localhost:3000/api/v1/favorites`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        title:article.title,
+        description: article.description,
+        source:source,
+        url: article.url,
+        img_url:article.urlToImage,
+        user_id: user.id,
+        created_at:month+" "+day+" "+year,
+        updated_at:month+" "+day+" "+year
+      })
+    })
+    .then( response => response.json())
+    .then( res => {
+    })
+  }
 
   return(
     <article className = "article">
@@ -41,6 +82,8 @@ const Article = ({article,source,list}) => {
       <div className = "middle-of-card">
         <a className = "middle-of-card-link" href={article.url}>link to article</a>
         <div className = "middle-of-card-button-container">
+          <button onClick={()=>{handleFavorites()}}>Favorites</button>
+          <button onClick={()=>{handleSick()}}>ojasjoojsdo</button>
           <img
             onClick={() => handleOnClick('conservative')}
             className= "middle-of-card-img con-img"

@@ -56,6 +56,37 @@ app.get('/api/v1/user', (request, response) => {
     });
 });
 
+app.get('/api/v1/favorites', (request, response) => {
+  database('favorites').select()
+    .then(favorites => {
+      response.status(200).json(favorites);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
+});
+
+app.post('/api/v1/favorites',
+ (request,response) => {
+   const favorite = request.body
+   database('favorites').insert(favorite,'id')
+   .then(favorites => {
+     console.log(favorites)
+   })
+ } )
+
+ app.post('/api/v1/favorites/favs', (request,response) => {
+   console.log(request.body);
+   database('favorites').where({
+      user_id:request.body.id
+   }).then(user=>console.log(user,"user"))
+ })
+
+// ///database('user').insert(user,'id')
+//  .then(user => {
+//    console.log(user,'user,app');
+//   response.send(user)
+//   ///
 
 app.post('/api/v1/user/users', (request, response) => {
   database('user').where({
