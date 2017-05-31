@@ -1,5 +1,6 @@
 
 exports.up = function(knex, Promise) {
+  return Promise.all([
     knex.schema.createTable('favorites', function(table) {
       table.increments('id').primary();
       table.string('title')
@@ -12,8 +13,11 @@ exports.up = function(knex, Promise) {
        .references('user.id');
       table.timestamps();
     })
+  ])
 }
 
 exports.down = function(knex, Promise) {
+  return Promise.all([
   knex.schema.dropTable('favorites')
+])
 }

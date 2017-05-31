@@ -13,57 +13,46 @@ class SignUp extends Component {
     }
   }
 
+  createUser(input){
+    input.name=='error'?
+                        this.setState({error:"user name already taken"})
+                        :
+                        (this.props.handleAddUser({id:input[0],name:this.state.name}),
+                        this.props.history.replace('/'))
+  }
 
-
-  createUser(){
+  handleClick(){
     const d     = new Date()
     const month = d.getMonth()+1
     const day   = d.getDate()
     const year  = d.getFullYear()
 
-      fetch(`http://localhost:3000/api/v1/user`,{
-        method:"POST",
-        headers:{"Content-Type": "application/json"},
-        body:JSON.stringify({
-            name:this.state.name,
-            password:this.state.password,
-            created_at: month+" "+day+" "+year,
-            updated_at: month+" "+day+" "+year
-          })
-        })
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
-  }
-
-  handleClick(){
-    let inUse = false;
     if(!this.state.name||!this.state.password||!this.state.retypePassword){
       this.setState({error:"please enter all the information that is required "})
       return null
     }
 
     if(this.state.password!==this.state.retypePassword){
-      this.setState({error:"password must match"})
+      this.setState({error:"passwords must match"})
       return null
     }else{
+      fetch(`http://localhost:3000/api/v1/user/`,{
+        method:"POST",
+        headers:{"Content-Type": "application/json"},
+        body:JSON.stringify({
+            name:this.state.name,
+            password:this.state.password,
+            updated_at: month+" "+day+" "+year,
+            created_at: month+" "+day+" "+year
+          })
+        })
+        .then(response => response.json())
+        .then(response => this.createUser(response))
+        .catch( error => {
+          console.log(error,"error-message")
+        }
+        )
 
-      fetch(`http://localhost:3000/api/v1/user`)
-      .then(response => response.json())
-      .then(response => {
-            response.forEach( account => {
-            if(this.state.name.toLowerCase() == account.name.toLowerCase()){
-              this.setState({error:"user name already taken"})
-              inUse = true
-              }
-            })
-            if(!inUse){
-              this.createUser()
-              this.props.handleAddUser(this.state.name)
-              this.props.history.replace('/')
-
-            }
-          }).catch(error => console.log(error))
       }
   }
 

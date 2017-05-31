@@ -35,8 +35,6 @@ class SearchField extends Component {
       }
     }
 
-
-
   render(){
     return(
     <div className="search-field-container">
