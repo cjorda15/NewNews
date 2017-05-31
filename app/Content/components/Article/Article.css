@@ -70,6 +70,10 @@
   padding: 5px;
 }
 
+.con-img:active{
+  background-color: black;
+}
+
 .con-img:hover{
   background-color: #f15a49;
   transition: all .3s

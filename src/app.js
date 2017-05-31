@@ -30,11 +30,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 
-app.use('/assets', express.static(path.join(__dirname, '../app/assets')));
+app.use(express.static(path.join(__dirname, '../app')));
 
 app.get('/', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 
-app.listen(port);
 
 console.log(`Listening at http://localhost:${port}`);
 
@@ -74,6 +73,7 @@ app.put('/api/v1/news',(req,res) => {
     })
 
     app.get('/api/v1/user/', (request, response) => {
+      console.log('WOOT', request);
       database('user').select()
         .then(user => {
           console.log(user)
@@ -96,3 +96,7 @@ app.put('/api/v1/news',(req,res) => {
       console.error('error: ', error);
     });
 });
+
+app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
+
+app.listen(port);
