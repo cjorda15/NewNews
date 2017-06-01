@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {buildList} from './actions'
+import {buildList, showFavorties} from './actions'
 import React, {Component} from 'react';
 import Header  from './components/Header/Header.js'
 import MainContent from './components/MainContent/MainContent'
@@ -42,12 +42,22 @@ render(){
   )
  }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
 const mapDispatchToProps = (dispatch) =>{
   return{
-    handleBuildList:(input) =>{
+    handleBuildList:(input) => {
       dispatch(buildList(input))
+    },
+    handleShowFavorites:(input) => {
+      dispatch(showFavorties(input))
     }
   }
 }
 
-export default connect(null,mapDispatchToProps) (Content)
+export default connect(mapStateToProps,mapDispatchToProps) (Content)

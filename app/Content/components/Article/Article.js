@@ -1,14 +1,32 @@
-import React from 'react'
+import React, {Component} from 'react'
 import styles from './Article.css'
 import knex from 'knex'
 
-const Article = ({article,source,list,user,handleShowFavorites}) => {
+class Article extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  componentWillMount(){
+    if(this.props.user){
+        fetch(`http://localhost:3000/api/v1/favorites/favs`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            id: this.props.user.id
+          })
+        })
+        .then( response => response.json())
+        .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
+        })
+    }
+  }
 
 
-  const handleOnClick = (type) => {
+   handleOnClick(type){
 
-     const useSourse = list.filter(item => {
-      return source===item.source? item:null
+     const useSourse = this.props.list.filter(item => {
+      return this.props.source===item.source? item:null
      })
 
       const date =  Date.now()
@@ -22,70 +40,76 @@ const Article = ({article,source,list,user,handleShowFavorites}) => {
         })
       })
       .then( response => response.json())
-      .then( res => {
-      })
+      .then( res => {})
 }
 
-    const handleFavorites = () => {
+  handleFavorites(){
     const d     = new Date()
     const month = d.getMonth()+1
     const day   = d.getDate()
     const year  = d.getFullYear()
-    console.log(user)
-    user.id?
-
+    this.props.user.id?
+    (this.props.handleAddFavorite(this.props.article),
     fetch(`http://localhost:3000/api/v1/favorites`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        title:article.title,
-        description: article.description,
-        source:source,
-        url: article.url,
-        img_url:article.urlToImage,
-        user_id: user.id,
+        title:this.props.article.title,
+        description: this.props.article.description,
+        source:this.props.source,
+        url: this.props.article.url,
+        img_url:this.props.article.urlToImage,
+        user_id: this.props.user.id,
         created_at:month+" "+day+" "+year,
         updated_at:month+" "+day+" "+year
       })
     })
-    .then( response => response.json())
-    .then( res => { handleSick()
-    })
+    .catch(error => console.log(error,"error message")))
     :
-    alert("you must be logged in to favorite")
+    alert("you need to sign in to include a favorite")
   }
+
+  renderFavoriteButton(){
+    return this.props.isFavorite == "not-favorite" ?
+                <button className="favorite-button" onClick={()=>{this.handleFavorites()}}>Favorites</button>
+                :
+                <button className="unfavorite-button" onClick={()=>{console.log("wooooooo");}}>Unfavorite</button>
+
+  }
+
+  render(){
 
   return(
     <article className = "article">
      <div
         className = "top-of-card"
-        style={{ backgroundImage: `url(${article.urlToImage})` }}
+        style={{ backgroundImage: `url(${this.props.article.urlToImage})` }}
       >
       <div className="card-content">
-        <span className="card-background-container">{article.title}</span>
+        <span className="card-background-container">{this.props.article.title}</span>
       </div>
       </div>
       <div className = "middle-of-card">
-        <a className = "middle-of-card-link" href={article.url}>link to article</a>
+        <a className = "middle-of-card-link" href={this.props.article.url}>link to article</a>
         <div className = "middle-of-card-button-container">
-          <button onClick={()=>{handleFavorites()}}>Favorites</button>
+          {this.renderFavoriteButton()}
           <img
-            onClick={() => handleOnClick('conservative')}
+            onClick={() => this.handleOnClick('conservative')}
             className= "middle-of-card-img con-img"
             src={'https://d30y9cdsu7xlg0.cloudfront.net/png/29046-200.png'}
           />
           <img
-            onClick={() => handleOnClick('liberal')}
+            onClick={() => this.handleOnClick('liberal')}
             className= "middle-of-card-img lib-img"
             src={`https://d30y9cdsu7xlg0.cloudfront.net/png/66721-200.png`}/>
         </div>
       </div>
       <div className = "bottom-card">
-        <div className="bottom-card-content">{article.description}
+        <div className="bottom-card-content">{this.props.article.description}
         </div>
       </div>
     </article>
   )
+ }
 }
-
 export default Article

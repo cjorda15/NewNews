@@ -1,12 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import LogOut from './Logout'
-import {clearUser} from '../../actions'
+import {clearUser, showFavorites} from '../../actions'
 
 const mapDispatchToProps = (dispatch) => {
   return{
     handleClearUser:(input) => {
       dispatch(clearUser(input))
+    },
+    handleShowFavorites:(input) => {
+      dispatch(showFavorites(input))
     }
   }
 }

@@ -5,7 +5,8 @@ import {addSource} from '../../actions'
 
 const mapStateToProps = (state) => {
   return{
-    articles: state.article
+    articles:  state.article,
+    favorites: state.favorites
   }
 }
 

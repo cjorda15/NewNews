@@ -68,10 +68,37 @@
   text-decoration: underline;
   color: #fff;
   padding: 5px;
+  font-family: serif;
+}
+
+.middle-of-card-button-container{
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.favorite-button{
+  background-color: cornflowerblue;
+  outline: none;
+  border-radius: 2px;
+  border: 1px solid #000;
+}
+
+.favorite-button:hover, .unfavorite-button:hover{
+  border-radius: 5px;
+  border:1px solid #fff;
+  transition: all .3s
+}
+
+.unfavorite-button{
+  background-color: gold;
+  outline: none;
+  border-radius: 2px;
+  border: 1px solid #000;
 }
 
 .con-img:active{
-  background-color: black;
+  background-color: #000;
 }
 
 .con-img:hover{

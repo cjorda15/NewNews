@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from './LogOut.css'
 
-const LogOut = ({history,handleClearUser}) => {
+const LogOut = ({history,handleClearUser,handleShowFavorites}) => {
 
  const handleClickYes = () => {
    handleClearUser()
+   handleShowFavorites([])
    history.history.replace('/')
  }
  const handleClickNo = () => {

@@ -12,6 +12,13 @@ export const showFavorites = (input) => {
   }
 }
 
+export const addFavorite = (input) => {
+  return{
+    type:'ADD_FAVORITES',
+    input
+  }
+}
+
 
 export const addSource = (source) => {
   return{
