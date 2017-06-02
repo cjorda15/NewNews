@@ -7,26 +7,28 @@ class Article extends Component {
     super(props)
     this.state = {
       bottomCardMessage:"",
-      showInfo:"true"
+      showInfo:true,
+      conClicked:false,
+      libClicked:false
     }
   }
 
-
-  componentWillMount(){
-    if(this.props.user){
-        fetch(`http://localhost:3000/api/v1/favorites/favs`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            id: this.props.user.id
-          })
-        })
-        .then( response => response.json())
-        .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
-        })
-        .catch(error => console.log(error,"error message"))
-    }
-  }
+  //
+  // componentWillMount(){
+  //   if(this.props.user){
+  //       fetch(`http://localhost:3000/api/v1/favorites/favs`, {
+  //         method: "POST",
+  //         headers: {"Content-Type": "application/json"},
+  //         body: JSON.stringify({
+  //           id: this.props.user.id
+  //         })
+  //       })
+  //       .then( response => response.json())
+  //       .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
+  //       })
+  //       .catch(error => console.log(error,"error message"))
+  //   }
+  // }
 
 
   handleOnClick(type){

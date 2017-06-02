@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Article from '../Article/Article'
+import ArticleContainer from '../Article/ArticleContainer'
 import styles from './Favorites.css'
 
 class Favorites extends Component {
@@ -24,7 +24,7 @@ class Favorites extends Component {
     return  this.props.favorites?
               this.props.favorites.map((item,i) => {
                item.urlToImage = item.img_url
-                return   <Article
+                return   <ArticleContainer
                           handleShowFavorites={this.props.handleShowFavorites}
                           user= {{id:this.props.user}}
                           key={i}
