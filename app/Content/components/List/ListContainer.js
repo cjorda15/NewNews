@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
   return{
     articles:  state.article,
     favorites: state.favorites,
-    list    :  state.buildList
+    list    :  state.buildList,
+    source  :  state.source
   }
 }
 

@@ -21,16 +21,18 @@ class Favorites extends Component {
   }
 
   renderFavorites(){
-  return  this.props.favorites?
-                    this.props.favorites.map((item,i) => {
-                      item.urlToImage = item.img_url
-                   return   <Article
-                            key={i}
-                            article={item}
-                            btnType={"delete"}/>
+    return  this.props.favorites?
+              this.props.favorites.map((item,i) => {
+               item.urlToImage = item.img_url
+                return   <Article
+                          handleShowFavorites={this.props.handleShowFavorites}
+                          user= {{id:this.props.user}}
+                          key={i}
+                          article={item}
+                          btnType={"delete"}/>
                     })
-                    :
-                    <div>no favorites?</div>
+              :
+              <div>no favorites?</div>
  }
   render(){
   return(

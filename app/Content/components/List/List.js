@@ -2,7 +2,7 @@ import React from 'react'
 import ArticleContainer from '../Article/ArticleContainer'
 import styles from './List.css'
 
-const List = ({articles, favorites, user,list}) => {
+const List = ({articles, favorites, user,list,source}) => {
 
   const renderList = () => {
     let isFavorite;
@@ -18,6 +18,7 @@ const List = ({articles, favorites, user,list}) => {
       return (
 
         <ArticleContainer
+         source = {source}
          btnType ={'save'}
          user={user}
          index={index}

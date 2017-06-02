@@ -78,14 +78,16 @@ app.post('/api/v1/favorites',
    console.log(request.body);
    database('favorites').where({
       user_id:request.body.id
-   }).then(user=> response.send(user))
+   }).then(user => response.send(user))
+      .catch(err => console.log(err,"error-message"))
  })
 
-// ///database('user').insert(user,'id')
-//  .then(user => {
-//    console.log(user,'user,app');
-//   response.send(user)
-//   ///
+ app.delete('/api/v1/favorites/delete', (request,response) => {
+   database('favorites').where({
+      extra_key:request.body.key
+   }).del().then(user => response.status(200).json({user}))
+      .catch(err => console.log(err,"error-messag"))
+ })
 
 app.post('/api/v1/user/users', (request, response) => {
   database('user').where({

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Article from './Article'
-import { showFavorites, addFavorite } from '../../actions'
+import { showFavorites, addFavorite, buildList } from '../../actions'
 
 const mapStateToProps = (state) => {
   return{
@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleAddFavorite: (input) => {
       dispatch(addFavorite(input))
+    },
+    handleBuildList: (input) => {
+      dispatch(buildList(input))
     }
   }
 }

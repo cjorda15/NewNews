@@ -44,11 +44,17 @@ class Article extends Component {
     })
   })
     .then(response => response.json())
+    .then(response => this.updateList())
     .catch(error => console.log(error,"error message"))
 }
 
+  updateList(){
+    fetch(`http://localhost:3000/api/v1/news`)
+      .then(response => response.json()).then(response => this.props.handleBuildList(response))
+  }
+
   handleFavorites(){
-    const key =this.props.user.id+this.props.article.title
+    const key   = this.props.user.id+this.props.article.title
     const d     = new Date()
     const month = d.getMonth()+1
     const day   = d.getDate()
@@ -86,8 +92,37 @@ class Article extends Component {
   }
 
   handleDeleteFavorite(){
-    console.log("DEKETE me")
-  }
+
+    fetch('http://localhost:3000/api/v1/favorites/delete', {
+      method:'DELETE',
+      headers: {'Content-Type':'application/json'},
+      body:JSON.stringify({
+        key: this.props.user.id+this.props.article.title
+      })
+    })
+      .then(response => this.refreshList())
+      .catch(error => console.log(error,"error in delete"))
+      console.log("ive been shot");
+}
+
+
+  refreshList(){
+    console.log('hit');
+    fetch(`http://localhost:3000/api/v1/favorites/favs`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        id: this.props.user.id
+      })
+    })
+    .then( response => response.json())
+    .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
+    })
+        .catch( err => console.log(err,"error in favs update in article"))
+
+      }
+
+
 
   renderButton(){
   return  this.props.btnType==="save"?
