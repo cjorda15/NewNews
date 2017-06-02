@@ -4,7 +4,7 @@ const user = (state="",action) => {
       return action.user
 
     case 'CLEAR_USER':
-      return null
+      return ""
 
     default:
       return state

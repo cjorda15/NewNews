@@ -42,8 +42,11 @@
 }
 
 .bottom-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   flex: 1;
-  font-size:20px;
+  font-size: 20px;
   border-radius: 10px;
   background-color: #fff;
 }
@@ -116,6 +119,11 @@ background-color: black;
 padding: 3px;
 border-radius: 5px;
 opacity: 0.8;
+}
+
+.bottom-message{
+  padding-top: 5px;
+  font-size: 13px;
 }
 
 a:hover{

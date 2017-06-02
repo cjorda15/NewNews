@@ -5,9 +5,12 @@ import knex from 'knex'
 class Article extends Component {
   constructor(props){
     super(props)
+    this.state = {bottomCardMessage:""}
   }
 
+
   componentWillMount(){
+
     if(this.props.user){
         fetch(`http://localhost:3000/api/v1/favorites/favs`, {
           method: "POST",
@@ -23,24 +26,25 @@ class Article extends Component {
   }
 
 
-   handleOnClick(type){
+  handleOnClick(type){
+   const date =  Date.now()
 
-     const useSourse = this.props.list.filter(item => {
-      return this.props.source===item.source? item:null
-     })
-
-      const date =  Date.now()
-      fetch(`http://localhost:3000/api/v1/news`, {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          id: useSourse[0].id,
-          type: type,
-          updated_at:date
-        })
-      })
-      .then( response => response.json())
-      .then( res => {})
+   const useSource = this.props.list.find(article => {
+      if(article.source == this.props.source){
+        return article
+      }
+    })
+  fetch(`http://localhost:3000/api/v1/news`, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      id: useSource.id,
+      type: type,
+      updated_at:date
+    })
+  })
+    .then(response => response.json())
+    .catch(error => console.log(error,"error message"))
 }
 
   handleFavorites(){
@@ -48,14 +52,17 @@ class Article extends Component {
     const month = d.getMonth()+1
     const day   = d.getDate()
     const year  = d.getFullYear()
-    this.props.user.id?
-    (this.props.handleAddFavorite(this.props.article),
-    fetch(`http://localhost:3000/api/v1/favorites`, {
+    this.props.user?
+
+    (
+     this.setState({bottomCardMessage:""}),
+     fetch(`http://localhost:3000/api/v1/favorites`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         title:this.props.article.title,
         description: this.props.article.description,
+        author:this.props.article.author,
         source:this.props.source,
         url: this.props.article.url,
         img_url:this.props.article.urlToImage,
@@ -63,22 +70,23 @@ class Article extends Component {
         created_at:month+" "+day+" "+year,
         updated_at:month+" "+day+" "+year
       })
-    })
-    .catch(error => console.log(error,"error message")))
+    }).then(response => response.json())
+      .then(response => this.props.handleAddFavorite(response))
+      .catch(error => console.log(error,"error message")))
     :
-    alert("you need to sign in to include a favorite")
+    this.setState({bottomCardMessage:"You need to be logged in to select a favorite"})
   }
 
   renderFavoriteButton(){
-    return this.props.isFavorite == "not-favorite" ?
-                <button className="favorite-button" onClick={()=>{this.handleFavorites()}}>Favorites</button>
+
+    return this.props.isFavorite == "favorite" ?
+                <button className="unfavorite-button" onClick={()=>{console.log("wooooooo")}}>Unfavorite</button>
                 :
-                <button className="unfavorite-button" onClick={()=>{console.log("wooooooo");}}>Unfavorite</button>
+                <button className="favorite-button" onClick={()=>{this.handleFavorites()}}>Favorites</button>
 
   }
 
   render(){
-
   return(
     <article className = "article">
      <div
@@ -105,6 +113,7 @@ class Article extends Component {
         </div>
       </div>
       <div className = "bottom-card">
+        <div className="bottom-message">{this.state.bottomCardMessage}</div>
         <div className="bottom-card-content">{this.props.article.description}
         </div>
       </div>

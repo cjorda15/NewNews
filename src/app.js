@@ -69,11 +69,9 @@ app.get('/api/v1/favorites', (request, response) => {
 app.post('/api/v1/favorites',
  (request,response) => {
    const favorite = request.body
-   database('favorites').insert(favorite,'id')
-   .then(favorites => {
-     console.log(favorites)
-   })
- } )
+   database('favorites').insert(favorite,'description')
+   .then(favorite => { response.send(favorite) })
+ })
 
  app.post('/api/v1/favorites/favs', (request,response) => {
    console.log(request.body);

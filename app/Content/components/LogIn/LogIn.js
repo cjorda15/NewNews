@@ -12,7 +12,6 @@ class LogIn extends Component {
   }
 
   handleOnClick(){
-    console.log('hitclick')
     const d     = new Date()
     const month = d.getMonth()+1
     const day   = d.getDate()

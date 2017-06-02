@@ -2,25 +2,23 @@ import React from 'react'
 import ArticleContainer from '../Article/ArticleContainer'
 import styles from './List.css'
 
-const List = ({articles, favorites, user}) => {
+const List = ({articles, favorites, user,list}) => {
 
   const renderList = () => {
-    let isFavorite = "not-favorite"
+    let isFavorite;
     return articles.map((article,index) =>{
       if(favorites.list){
-        favorites.list.forEach(fav => {
-        if(fav.description==article.description){
-          isFavorite = "favorite"
-        }else{
-          isFavorite = "not-favorite"
-
-        }
-
+         favorites.list.forEach(fav => {
+         isFavorite =  fav.description==article.description? "favorite" : "not-favorite"
       })
+    }
+    if(!isFavorite){
+      isFavorite ="not-favorite"
     }
       return (
 
         <ArticleContainer
+         user={user}
          index={index}
          key={index}
          article={article}
@@ -29,6 +27,7 @@ const List = ({articles, favorites, user}) => {
     })
 
 }
+
 
   return(
     <main className="list-container">

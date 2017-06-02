@@ -1,11 +1,13 @@
-const favorites = (state=[],action) => {
+const favorites = (state={},action) => {
   switch(action.type){
     case 'SHOW_FAVORITES':
       return action.payload
+
     case 'ADD_FAVORITES':
-      const newState = [...state.list]
-      newState.push(action.input)
-      return newState
+      const newState = Object.assign({},state)
+      newState.list.push(action.input)
+        return newState
+
     default:
         return state
   }

@@ -9,12 +9,12 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('favorites', function(table) {
       table.increments('id').primary();
       table.string('title')
-      table.string('description')
+      table.string('description').unique()
       table.string('source')
+      table.string('author')
       table.string('url')
       table.string('img_url')
       table.integer('user_id').unsigned()
-
       table.foreign('user_id')
        .references('user.id');
       table.timestamps();
