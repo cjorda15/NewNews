@@ -5,7 +5,10 @@ import knex from 'knex'
 class Article extends Component {
   constructor(props){
     super(props)
-    this.state = {bottomCardMessage:""}
+    this.state = {
+      bottomCardMessage:"",
+      showInfo:"true"
+    }
   }
 
 
@@ -32,7 +35,7 @@ class Article extends Component {
       if(article.source == this.props.source){
         return article
       }
-    })
+  })
 
   fetch(`http://localhost:3000/api/v1/news`, {
     method: "PUT",
@@ -46,7 +49,7 @@ class Article extends Component {
     .then(response => response.json())
     .then(response => this.updateList())
     .catch(error => console.log(error,"error message"))
-}
+ }
 
   updateList(){
     fetch(`http://localhost:3000/api/v1/news`)
@@ -131,6 +134,19 @@ class Article extends Component {
          className="favorite-button">{this.props.btnType}</button>
   }
 
+  bottomMessage(){
+    const useSource = this.props.list.find(article => {
+       if(article.source == this.props.source){
+         return article
+       }
+     })
+
+    return this.state.showInfo?
+              `conservative: ${useSource.conservative} liberal: ${useSource.liberal}`
+              :
+              this.state.bottomCardMessage
+  }
+
   render(){
   return(
     <article className = "article">
@@ -158,7 +174,7 @@ class Article extends Component {
         </div>
       </div>
       <div className = "bottom-card">
-        <div className="bottom-message">{this.state.bottomCardMessage}</div>
+        <div className="bottom-message">{this.bottomMessage()}</div>
         <div className="bottom-card-content">{this.props.article.description}
         </div>
       </div>

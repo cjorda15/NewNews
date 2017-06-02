@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SearchField from './SearchField'
-import {addArticles} from '../../actions'
+import {addArticles, buildList} from '../../actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleAddArticles: source => {
       dispatch(addArticles(source))
+    },
+    handleBuildList: input => {
+      dispatch(buildList(input))
     }
   }
 }

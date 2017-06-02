@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {buildList, showFavorties} from './actions'
+import {buildList, showFavorties, addArticles} from './actions'
 import React, {Component} from 'react';
 import Header  from './components/Header/Header.js'
 import MainContent from './components/MainContent/MainContent'
@@ -16,8 +16,18 @@ class Content extends Component {
     }
 
 componentDidMount(){
+  const endpoint =
+  `https://newsapi.org/v1/articles?source=abc-news-au&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
+
   fetch(`http://localhost:3000/api/v1/news`)
     .then(response => response.json()).then(response => this.props.handleBuildList(response))
+
+      
+      fetch(endpoint).then(resp =>resp.json()).then(data => {
+        const {articles} = data
+        this.props.handleAddArticles(articles)
+      })
+
 }
 
 
@@ -49,13 +59,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
   return{
     handleBuildList:(input) => {
       dispatch(buildList(input))
     },
     handleShowFavorites:(input) => {
       dispatch(showFavorties(input))
+    },
+    handleAddArticles:(input) => {
+      dispatch(addArticles(input))
     }
   }
 }

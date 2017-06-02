@@ -1,5 +1,4 @@
-.search-container-criteria, .search-container-list,
-.search-button-container{
+.search-container-criteria, .search-container-list{
 padding-top: 15px;
 }
 
@@ -7,20 +6,4 @@ padding-top: 15px;
   width: 200px;
   height: 40px;
   font-size: 16px;
-}
-
-
-.search-button-container button{
-  background-color: cornflowerblue;
-  outline: none;
-  width: 89px;
-  height: 44px;
-  color:#fff;
-  border: 1px #000 solid;
-}
-
-.search-button-container button:hover{
-  border: 1px white solid;
-  border-radius: 5px;
-  transition: all .5s
 }

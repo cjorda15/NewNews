@@ -13,6 +13,12 @@ class SearchField extends Component {
 
 
   handleClick(){
+    fetch(`http://localhost:3000/api/v1/news`)
+      .then(response => response.json()).then(response => this.props.handleBuildList(response))
+      .then(response => this.addArticles())
+  }
+
+  addArticles(){
     const endpoint =
     `https://newsapi.org/v1/articles?source=${this.props.source}&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
     fetch(endpoint).then(resp =>resp.json()).then(data => {
@@ -21,17 +27,21 @@ class SearchField extends Component {
     })
   }
 
+  updateList(){
+    fetch(`http://localhost:3000/api/v1/news`)
+      .then(response => response.json()).then(response => this.props.handleBuildList(response))
+  }
 
   listSource(){
     switch(this.props.criteria){
       case 'alphabetical':
-        return <ListSourceContainer/>
+        return <ListSourceContainer handleNewList={this.handleClick.bind(this)}/>
       case 'most conservative':
-        return <ListSourceConContainer/>
+        return <ListSourceConContainer handleNewList={this.handleClick.bind(this)}/>
       case 'most liberal':
-          return <ListSourceLibContainer/>
+          return <ListSourceLibContainer handleNewList={this.handleClick.bind(this)}/>
       default:
-        return  <ListSourceContainer/>
+        return  <ListSourceContainer handleNewList={this.handleClick.bind(this)}/>
       }
     }
 
@@ -39,13 +49,10 @@ class SearchField extends Component {
     return(
     <div className="search-field-container">
     <div className="search-container-criteria">
-    <ListCriteriaContainer/>
+    <ListCriteriaContainer handleNewList={this.handleClick.bind(this)}/>
       </div>
       <div className="search-container-list">
       {this.listSource()}
-      </div>
-      <div className="search-button-container">
-        <button onClick={()=>{this.handleClick()}}>Submit</button>
       </div>
     </div>
     )

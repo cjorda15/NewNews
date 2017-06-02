@@ -34,7 +34,10 @@ class ListSourceCon extends  Component{
 
 
   return(
-    <select onChange={(e)=>{this.props.handleAddSource(e.target.value)}} >
+    <select onChange={(e)=>{
+      this.props.handleAddSource(e.target.value)
+      this.props.handleNewList()
+    }} >
       {this.renderList()}
     </select>
   )
