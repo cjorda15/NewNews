@@ -10,7 +10,6 @@ class Article extends Component {
 
 
   componentWillMount(){
-
     if(this.props.user){
         fetch(`http://localhost:3000/api/v1/favorites/favs`, {
           method: "POST",
@@ -22,18 +21,19 @@ class Article extends Component {
         .then( response => response.json())
         .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
         })
+        .catch(error => console.log(error,"error message"))
     }
   }
 
 
   handleOnClick(type){
    const date =  Date.now()
-
    const useSource = this.props.list.find(article => {
       if(article.source == this.props.source){
         return article
       }
     })
+
   fetch(`http://localhost:3000/api/v1/news`, {
     method: "PUT",
     headers: {"Content-Type": "application/json"},
@@ -107,26 +107,24 @@ class Article extends Component {
 
 
   refreshList(){
-    console.log('hit');
     fetch(`http://localhost:3000/api/v1/favorites/favs`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        id: this.props.user.id
+       id: this.props.user.id
       })
     })
     .then( response => response.json())
-    .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
-    })
-        .catch( err => console.log(err,"error in favs update in article"))
-
-      }
+    .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})})
+    .catch( err => console.log(err,"error in favs update in article"))
+ }
 
 
 
   renderButton(){
   return  this.props.btnType==="save"?
-        <button className="favorite-button"         onClick={()=>{this.handleFavorites()}}>{this.props.btnType}</button>
+        <button className="favorite-button"
+         onClick={()=>{this.handleFavorites()}}>{this.props.btnType}</button>
         :
         <button
          onClick={()=>{this.handleDeleteFavorite()}}
