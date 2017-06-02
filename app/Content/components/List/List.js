@@ -18,6 +18,7 @@ const List = ({articles, favorites, user,list}) => {
       return (
 
         <ArticleContainer
+         btnType ={'save'}
          user={user}
          index={index}
          key={index}

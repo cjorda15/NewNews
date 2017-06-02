@@ -24,7 +24,10 @@ class Favorites extends Component {
   return  this.props.favorites?
                     this.props.favorites.map((item,i) => {
                       item.urlToImage = item.img_url
-                   return   <Article key={i} article={item}/>
+                   return   <Article
+                            key={i}
+                            article={item}
+                            btnType={"delete"}/>
                     })
                     :
                     <div>no favorites?</div>

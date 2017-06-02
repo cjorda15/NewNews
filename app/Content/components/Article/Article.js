@@ -53,7 +53,6 @@ class Article extends Component {
     const month = d.getMonth()+1
     const day   = d.getDate()
     const year  = d.getFullYear()
-    console.log(key)
     this.props.user?
 
     (this.setState({bottomCardMessage:""}),
@@ -73,19 +72,30 @@ class Article extends Component {
         updated_at:month+" "+day+" "+year
       })
     }).then(response => response.json())
-      .then(response => this.props.handleAddFavorite(response))
+      .then(response => this.handleResponse(response))
       .catch(error => console.log(error,"error message")))
     :
-    this.setState({bottomCardMessage:"You need to be logged in to select a favorite"})
+    this.setState({bottomCardMessage:"Please log in to save a article"})
   }
 
-  renderFavoriteButton(){
+  handleResponse(response){
+        response.name=='error'?
+            this.setState({bottomCardMessage:"already selected"})
+            :
+            this.setState({bottomCardMessage:""})
+  }
 
-    return this.props.isFavorite == "favorite" ?
-                <button className="unfavorite-button" onClick={()=>{console.log("wooooooo")}}>Unfavorite</button>
-                :
-                <button className="favorite-button" onClick={()=>{this.handleFavorites()}}>Favorites</button>
+  handleDeleteFavorite(){
+    console.log("DEKETE me")
+  }
 
+  renderButton(){
+  return  this.props.btnType==="save"?
+        <button className="favorite-button"         onClick={()=>{this.handleFavorites()}}>{this.props.btnType}</button>
+        :
+        <button
+         onClick={()=>{this.handleDeleteFavorite()}}
+         className="favorite-button">{this.props.btnType}</button>
   }
 
   render(){
@@ -102,7 +112,7 @@ class Article extends Component {
       <div className = "middle-of-card">
         <a className = "middle-of-card-link" href={this.props.article.url}>link to article</a>
         <div className = "middle-of-card-button-container">
-          {this.renderFavoriteButton()}
+        {this.renderButton()}
           <img
             onClick={() => this.handleOnClick('conservative')}
             className= "middle-of-card-img con-img"

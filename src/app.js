@@ -71,6 +71,7 @@ app.post('/api/v1/favorites',
    const favorite = request.body
    database('favorites').insert(favorite,'description')
    .then(favorite => { response.send(favorite) })
+   .catch(err => response.send(err))
  })
 
  app.post('/api/v1/favorites/favs', (request,response) => {
