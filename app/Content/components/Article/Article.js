@@ -48,14 +48,15 @@ class Article extends Component {
 }
 
   handleFavorites(){
+    const key =this.props.user.id+this.props.article.title
     const d     = new Date()
     const month = d.getMonth()+1
     const day   = d.getDate()
     const year  = d.getFullYear()
+    console.log(key)
     this.props.user?
 
-    (
-     this.setState({bottomCardMessage:""}),
+    (this.setState({bottomCardMessage:""}),
      fetch(`http://localhost:3000/api/v1/favorites`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -64,6 +65,7 @@ class Article extends Component {
         description: this.props.article.description,
         author:this.props.article.author,
         source:this.props.source,
+        extra_key:key,
         url: this.props.article.url,
         img_url:this.props.article.urlToImage,
         user_id: this.props.user.id,

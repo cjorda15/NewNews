@@ -9,9 +9,10 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('favorites', function(table) {
       table.increments('id').primary();
       table.string('title')
-      table.string('description').unique()
+      table.string('description')
       table.string('source')
       table.string('author')
+      table.string('extra_key').unique()
       table.string('url')
       table.string('img_url')
       table.integer('user_id').unsigned()
