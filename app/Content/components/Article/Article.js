@@ -67,8 +67,10 @@ class Article extends Component {
  }
 
   updateList(){
+
     fetch(`http://localhost:3000/api/v1/news`)
-      .then(response => response.json()).then(response => this.props.handleBuildList(response))
+      .then(response => response.json()).then(response => this.props.handleBuildList(response)).
+      then(response => console.log('response bah ', response))
   }
 
   handleFavorites(){
