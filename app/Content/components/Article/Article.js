@@ -207,11 +207,11 @@ class Article extends Component {
     const total = con + lib
     const libPercent = Math.floor(con/total*100)
     const conPercent= Math.floor(lib/total*100)
-    console.log(libPercent,'lib')
-    console.log(lib/total,'lib-gaff')
     const messageStyle = {
       color: '#fff',
-      backgroundImage:`-webkit-gradient(linear, left bottom, left top, color-stop(0.${conPercent}, red), color-stop(0.${libPercent}, #3a4ed5))`
+      backgroundImage:`-webkit-gradient(linear, left bottom, left top, color-stop(0.${conPercent}, red), color-stop(0.${libPercent}, #3a4ed5))`,
+      borderRadius: '4px',
+      padding: '7px'
     }
 
 
