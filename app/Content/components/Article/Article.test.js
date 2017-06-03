@@ -6,7 +6,7 @@ import { shallow, mount } from 'enzyme'
 describe('Article test', () => {
   const article=
   {urlToImage:"newsImg",title:"Invade iran",url:'http:blah',description:"We invaded"}
-  const wrapper = shallow(<Article article={article}/>)
+  const wrapper = shallow(<Article list={["weee"]} article={article}/>)
 
   it('should render without crashing', () => {
   expect(wrapper.length).toEqual(1)
@@ -28,7 +28,6 @@ describe('Article test', () => {
 
   it('should have two elements that can be clicked' ,() => {
     const spy = jest.fn()
-    console.log(wrapper.find('con-img'));
   })
 
 })

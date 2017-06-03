@@ -7,7 +7,9 @@ import dummyData from './dummyData'
 
 describe('ListSource test' , () => {
   const spy = jest.fn()
-  const wrapper = shallow(<ListSource handleAddSource={spy}/>)
+  const wrapper = shallow(<ListSource
+                           handleNewList={spy}
+                           handleAddSource={spy}/>)
 
   it('should render',() => {
     expect(wrapper.length).toEqual(1)
@@ -42,7 +44,10 @@ describe('ListSource test' , () => {
  describe('ListSourceCon test' , () => {
    const spy = jest.fn()
    const list = dummyData
-   const wrapper = mount(<ListSourceCon handleAddSource={spy} list={list}/>)
+   const wrapper = mount(<ListSourceCon
+                          handleAddSource={spy}
+                          list={list}
+                          handleNewList={spy}/>)
 
    it('should render', () => {
      expect(wrapper.length).toEqual(1)
@@ -72,7 +77,10 @@ describe('ListSource test' , () => {
  describe('ListSourceLib test' , () => {
    const spy = jest.fn()
    const list = dummyData
-   const wrapper = mount(<ListSourceLib handleAddSource={spy} list={list}/>)
+   const wrapper = mount(<ListSourceLib
+                          handleAddSource={spy}
+                          handleNewList={spy}
+                          list={list}/>)
 
    it('should render', () => {
      expect(wrapper.length).toEqual(1)

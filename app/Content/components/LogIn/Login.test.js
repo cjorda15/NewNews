@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import Login from './Login'
+import fetchMock from 'fetch-mock'
 
 describe('Login test', () => {
 
@@ -13,7 +14,7 @@ describe('Login test', () => {
   }
 
   const mockCalls = () => {
-    fetchMock.get('http://localhost:3000/api/v1/user', {
+    fetchMock.get('http://localhost:3000/api/v1/user/users', {
       status: 200,
       ok: true,
       body: userResponse
@@ -22,7 +23,7 @@ describe('Login test', () => {
     fetchMock.get('*', {
     status: 200,
     ok: true,
-    body: newUserResponse
+    body: userResponse
   })
 }
 
@@ -55,6 +56,7 @@ describe('Login test', () => {
   })
 
   it('should be able log in users when button is clicked', () =>{
+    mockCalls()
     const spy = jest.fn()
     const wrapper = shallow(<Login handleAddUser={spy}/>)
 

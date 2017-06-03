@@ -5,7 +5,8 @@ import { shallow, mount } from 'enzyme'
 
 describe('ListCriteria test' , () => {
   const spy = jest.fn()
-  const wrapper = shallow(<ListCriteria handleChangeCriteria={spy}/>)
+  const wrapper = shallow(<ListCriteria
+    handleNewList={spy} handleChangeCriteria={spy}/>)
 
   it('should render', () => {
     expect(wrapper.length).toEqual(1)

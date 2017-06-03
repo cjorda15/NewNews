@@ -17,6 +17,7 @@ describe('LogOut test', () => {
   })
 
   it('should have a button that can change the history back to the root url and fires off a action to login', () => {
+
     const spy = jest.fn()
     let history = {
       history:{
@@ -26,7 +27,9 @@ describe('LogOut test', () => {
       }
      }
     }
-    const wrapper = mount(<LogOut history={history} handleClearUser={spy}/>)
+    const wrapper = mount(<LogOut history={history}
+                            handleClearUser={spy}
+                            handleShowFavorites={spy}/>)
     expect(wrapper.props().history.history.url).toEqual('http://localhost:5000/logoff')
     wrapper.find('button').first().simulate('click')
      expect(spy).toHaveBeenCalled()
@@ -43,7 +46,9 @@ describe('LogOut test', () => {
       }
      }
     }
-    const wrapper = mount(<LogOut history={history} handleClearUser={spy}/>)
+    const wrapper =  mount(<LogOut history={history}
+                            handleClearUser={spy}
+                            handleShowFavorites={spy}/>)
     expect(wrapper.props().history.history.url).toEqual('http://localhost:5000/logoff')
     wrapper.find('button').last().simulate('click')
     expect(wrapper.props().history.history.url).toEqual('/')
