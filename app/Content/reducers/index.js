@@ -5,6 +5,8 @@ import searchCriteria      from './searchCriteria'
 import buildList           from './buildList'
 import user                from './user'
 import favorites           from './favorites'
+import conList             from './conList'
+import libList             from './libList'
 
 const rootReducer = combineReducers({
   article,
@@ -12,7 +14,9 @@ const rootReducer = combineReducers({
   searchCriteria,
   buildList,
   user,
-  favorites
+  favorites,
+  conList,
+  libList
 })
 
 export default rootReducer

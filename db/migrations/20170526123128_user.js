@@ -18,6 +18,16 @@ exports.up = function(knex, Promise) {
       table.integer('user_id')
       table.boolean('beenSaved')
       table.timestamps();
+    }),
+    knex.schema.createTable('conservative', function(table) {
+      table.increments('id').primary();
+      table.string('extra_key').unique()
+      table.integer('user_id')
+    }),
+    knex.schema.createTable('liberal', function(table) {
+      table.increments('id').primary();
+      table.string('extra_key').unique()
+      table.integer('user_id')
     })
   ])
 };
@@ -32,6 +42,8 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
+    knex.schema.dropTable('conservative'),
+    knex.schema.dropTable('liberal'),
     knex.schema.dropTable('favorites'),
     knex.schema.dropTable('user'),
   ]);

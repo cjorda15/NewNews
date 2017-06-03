@@ -48,8 +48,22 @@ export const addUser = (user) => {
   }
 }
 
-export const clearUser = () =>{
+export const clearUser = () => {
   return{
     type:"CLEAR_USER"
+  }
+}
+
+export const addCon = (input) => {
+  return{
+    type:"ADD_CON",
+    input
+  }
+}
+
+export const addLib = (input) => {
+  return{
+    type:"ADD_LIB",
+    input
   }
 }

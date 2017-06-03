@@ -75,7 +75,6 @@ app.post('/api/v1/favorites',
  })
 
  app.post('/api/v1/favorites/favs', (request,response) => {
-   console.log(request.body);
    database('favorites').where({
       user_id:request.body.id
    }).then(user => response.send(user))
@@ -130,16 +129,65 @@ app.post('/api/v1/user', (request, response) => {
   const user = request.body;
   database('user').insert(user,'id')
    .then(user => {
-     console.log(user,'user,app');
     response.send(user)
     //  response.send(response.body);
     // response.send(user)
-})
+}).then(response => console.log(response))
    .catch(error => {
      console.log(error)
   response.send(error);
   });
 });
+
+app.get('/api/v1/getcon', (request, response) => {
+  database('conservative').select()
+    .then(list => {
+      response.status(200).json(list);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
+});
+
+
+
+app.get('/api/v1/getlib', (request, response) => {
+  database('liberal').select()
+    .then(list => {
+      response.status(200).json(list);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
+});
+
+app.post('/api/v1/addcon', (request, response) => {
+  const con = request.body;
+  console.log(con);
+  database('conservative').insert(con,'id')
+   .then(user => {
+    response.json(con)
+})
+   .catch(error => {
+     console.log(error,'addcon,app error')
+  response.send(error);
+  })
+})
+
+app.post('/api/v1/addlib', (request, response) => {
+  const lib = request.body;
+  console.log(lib);
+  database('liberal').insert(lib,'id')
+   .then(user => {
+     console.log(lib,'addlib,app');
+    response.send(lib)
+})
+   .catch(error => {
+     console.log(error,'addcon,app error')
+  response.send(error);
+  })
+})
+
 
 app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 

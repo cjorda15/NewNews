@@ -13,11 +13,6 @@ class Article extends Component {
     }
   }
 
-
-  componentWillMount(){
-    console.log('mounted')
-  }
-
   //
   // componentWillMount(){
   //   if(this.props.user){
@@ -37,6 +32,10 @@ class Article extends Component {
 
 
   handleOnClick(type){
+    if(this.props.user){
+      this.handleVote(type)
+    }
+
     if(type =='conservative'&& this.state.conClicked==true){
       this.setState({bottomCardMessage:"already voted on news source",showInfo:false})
       return null
@@ -71,6 +70,22 @@ class Article extends Component {
     fetch(`http://localhost:3000/api/v1/news`)
       .then(response => response.json()).then(response => this.props.handleBuildList(response)).
       then(response => console.log('response bah ', response))
+  }
+
+  handleVote(type){
+    let voteType = type == 'conservative' ? "con": "lib"
+    fetch(`http://localhost:3000/api/v1/add${voteType}`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        user_id:this.props.user.id,
+        extra_key:this.props.user.id+this.props.article.title
+      })
+    }).then(res => res.json())
+      .then(res => {type=="conservative" ?
+        this.props.handleAddCon(res) : this.props.handleAddLib(res)
+      })
+      .catch(err => console.log(err))
   }
 
   handleFavorites(){
