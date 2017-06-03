@@ -35,7 +35,7 @@ class Favorites extends Component {
                           btnType={"delete"}/>
                     })
               :
-              <div className="no-favorites-message">no favorites?</div>
+              <div className="no-favorites-message">keeping articles not your thing?</div>
  }
   render(){
   return(
