@@ -13,23 +13,22 @@ class Article extends Component {
     }
   }
 
-  //
-  // componentWillMount(){
-  //   if(this.props.user){
-  //       fetch(`http://localhost:3000/api/v1/favorites/favs`, {
-  //         method: "POST",
-  //         headers: {"Content-Type": "application/json"},
-  //         body: JSON.stringify({
-  //           id: this.props.user.id
-  //         })
-  //       })
-  //       .then( response => response.json())
-  //       .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
-  //       })
-  //       .catch(error => console.log(error,"error message"))
-  //   }
-  // }
 
+  componentWillMount(){
+    if(this.props.user){
+        fetch(`http://localhost:3000/api/v1/favorites/favs`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            id: this.props.user.id
+          })
+        })
+        .then( response => response.json())
+        .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
+        })
+        .catch(error => console.log(error,"error message"))
+    }
+  }
 
   handleOnClick(type){
     if(this.props.user){
@@ -38,6 +37,12 @@ class Article extends Component {
 
     if(type =='conservative'&& this.state.conClicked==true){
       this.setState({bottomCardMessage:"already voted on news source",showInfo:false})
+      this.handleError()
+      return null
+    }
+    if(type=="liberal" && this.state.libClicked==true){
+      this.setState({bottomCardMessage:"already voted on news source",showInfo:false})
+      this.handleError()
       return null
     }
 
@@ -82,10 +87,20 @@ class Article extends Component {
         extra_key:this.props.user.id+this.props.article.title
       })
     }).then(res => res.json())
-      .then(res => {type=="conservative" ?
-        this.props.handleAddCon(res) : this.props.handleAddLib(res)
+      .then(res => {
+        if(res.name=="error"){
+          this.setState({bottomCardMessage:"already voted on",showInfo:false})
+        }else{
+          type=="conservative" ?
+          this.props.handleAddCon(res) : this.props.handleAddLib(res)
+          this.handleError()
+      }
       })
       .catch(err => console.log(err))
+  }
+
+  handleError(){
+    setTimeout(() => { this.setState({showInfo:true}) }, 3000)
   }
 
   handleFavorites(){
@@ -117,12 +132,13 @@ class Article extends Component {
       .then(response => this.handleResponse(response))
       .catch(error => console.log(error,"error message")))
     :
-    this.setState({bottomCardMessage:"Please log in to save a article",showInfo:false})
+    (this.setState({bottomCardMessage:"Please log in to save a article",showInfo:false}),
+    this.handleError())
   }
 
   handleResponse(response){
         response.name=='error'?
-            this.setState({showInfo:false,bottomCardMessage:"already selected"})
+            (this.setState({showInfo:false,bottomCardMessage:"already selected"}),this.handleError())
             :
             this.setState({showInfo:true})
   }
