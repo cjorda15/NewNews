@@ -78,6 +78,7 @@ class Article extends Component {
   }
 
   handleVote(type){
+
     let voteType = type == 'conservative' ? "con": "lib"
     fetch(`http://localhost:3000/api/v1/add${voteType}`,{
       method:"POST",
@@ -138,7 +139,7 @@ class Article extends Component {
 
   handleResponse(response){
         response.name=='error'?
-            (this.setState({showInfo:false,bottomCardMessage:"already selected"}),this.handleError())
+            (this.setState({showInfo:false,bottomCardMessage:"already saved"}),this.handleError())
             :
             this.setState({showInfo:true})
   }
@@ -193,6 +194,15 @@ class Article extends Component {
               `conservative: ${useSource.conservative} liberal: ${useSource.liberal}`
               :
               this.state.bottomCardMessage
+  }
+
+  middleCardImgClass(type){
+    if(type=="conservative"){
+      this.state.conClicked == true?  '.con-img-selected':'con-img'
+    }else{
+      this.state.libClicked == true?  '.lib-img-selected':'lib-img'
+
+    }
   }
 
   render(){

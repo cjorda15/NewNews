@@ -72,15 +72,6 @@
   transition: .3s;
 }
 
-.conSelected{
-
-}
-
-.libSelected{
-
-}
-
-
 .middle-of-card-link{
   text-decoration: underline;
   color: #fff;
@@ -109,12 +100,6 @@
   font-size: 14px;
 }
 
-/*.unfavorite-button{
-  background-color: gold;
-  outline: none;
-  border-radisus: 2px;
-  border: 1px solid #000;
-}*/
 
 .favorite-button:hover, .unfavorite-button:hover{
   border-radius: 5px;
@@ -123,13 +108,19 @@
 }
 
 
-
-.con-img:active{
-  background-color: #000;
+.con-img-selected{
+  background-color: #f15a49;
+  transition: all .3s
 }
+
 
 .con-img:hover{
   background-color: #f15a49;
+  transition: all .3s
+}
+
+.lib-img-selected{
+  background-color: cornflowerblue;
   transition: all .3s
 }
 
