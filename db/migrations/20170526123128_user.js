@@ -16,6 +16,7 @@ exports.up = function(knex, Promise) {
       table.string('url')
       table.string('img_url')
       table.integer('user_id')
+      table.boolean('beenSaved')
       table.timestamps();
     })
   ])

@@ -13,6 +13,11 @@ class Article extends Component {
     }
   }
 
+
+  componentWillMount(){
+    console.log('mounted')
+  }
+
   //
   // componentWillMount(){
   //   if(this.props.user){
@@ -32,6 +37,14 @@ class Article extends Component {
 
 
   handleOnClick(type){
+    if(type =='conservative'&& this.state.conClicked==true){
+      this.setState({bottomCardMessage:"already voted on news source",showInfo:false})
+      return null
+    }
+
+     type == "conservative"? this.setState({conClicked:true}) :  this.setState({libClicked:true})
+
+
    const date =  Date.now()
    const useSource = this.props.list.find(article => {
       if(article.source == this.props.source){
@@ -76,6 +89,7 @@ class Article extends Component {
         author:this.props.article.author,
         source:this.props.source,
         extra_key:key,
+        beenSaved:false,
         url: this.props.article.url,
         img_url:this.props.article.urlToImage,
         user_id: this.props.user.id,
@@ -86,14 +100,14 @@ class Article extends Component {
       .then(response => this.handleResponse(response))
       .catch(error => console.log(error,"error message")))
     :
-    this.setState({bottomCardMessage:"Please log in to save a article"})
+    this.setState({bottomCardMessage:"Please log in to save a article",showInfo:false})
   }
 
   handleResponse(response){
         response.name=='error'?
             this.setState({bottomCardMessage:"already selected"})
             :
-            this.setState({bottomCardMessage:""})
+            this.setState({showInfo:true})
   }
 
   handleDeleteFavorite(){
@@ -107,7 +121,6 @@ class Article extends Component {
     })
       .then(response => this.refreshList())
       .catch(error => console.log(error,"error in delete"))
-      console.log("ive been shot");
 }
 
 
