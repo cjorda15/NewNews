@@ -204,13 +204,14 @@ class Article extends Component {
   render(){
     const con = this.props.useSource.conservative
     const lib = this.props.useSource.liberal
-    const percent =  con > lib ? lib/con : con/lib
-    const color =  con > lib ? '#f70909' : '263fff'
+    const total = con + lib
+    const libPercent = Math.floor(con/total*100)
+    const conPercent= Math.floor(lib/total*100)
+    console.log(libPercent,'lib')
+    console.log(lib/total,'lib-gaff')
     const messageStyle = {
-      borderStyle: 'solid',
-      borderWidth: '3px',
-      borderImage: `linear-gradient(to left, rgba(0, 0, 0, 1) 1%, rgba(0, 255, 255, 1) 50%, rgba(0, 0, 0, 1) 100%)
-              100% 0 100% 0/3px 0 3px 0 stretch`
+      color: '#fff',
+      backgroundImage:`-webkit-gradient(linear, left bottom, left top, color-stop(0.${conPercent}, red), color-stop(0.${libPercent}, #3a4ed5))`
     }
 
 
