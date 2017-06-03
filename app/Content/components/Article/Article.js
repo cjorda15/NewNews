@@ -107,7 +107,7 @@ class Article extends Component {
 
   handleResponse(response){
         response.name=='error'?
-            this.setState({bottomCardMessage:"already selected"})
+            this.setState({showInfo:false,bottomCardMessage:"already selected"})
             :
             this.setState({showInfo:true})
   }

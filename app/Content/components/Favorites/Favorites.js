@@ -21,7 +21,10 @@ class Favorites extends Component {
   }
 
   renderFavorites(){
-    return  this.props.favorites?
+    if(!this.props.favorites){
+      return <div className="log-in-message-favs">log in or sign up please</div>
+    }
+    return  this.props.favorites.length>0?
               this.props.favorites.map((item,i) => {
                item.urlToImage = item.img_url
                 return   <ArticleContainer
@@ -32,7 +35,7 @@ class Favorites extends Component {
                           btnType={"delete"}/>
                     })
               :
-              <div>no favorites?</div>
+              <div className="no-favorites-message">no favorites?</div>
  }
   render(){
   return(
