@@ -31,24 +31,7 @@ class LogIn extends Component {
     .catch(
       error => console.log(error,"error-message")
     )
-}
-
-//   fetch(`http://localhost:3000/api/v1/user/users`,{
-//     method:"",
-//     headers:{"Content-Type": "application/json"},
-//     body:JSON.stringify({
-//       name:this.state.name,
-//       password:this.state.password,
-//       updated_at: month+" "+day+" "+year,
-//       created_at: month+" "+day+" "+year
-//     })
-//   })
-//   .then(response => response.json())
-//   .then(response => this.handleResponse(response))
-//   .catch(
-//     error => console.log(error,"error-message")
-//   )
-// }
+ }
 
   handleResponse(input){
     input.user[0]?(

@@ -10,7 +10,7 @@
 
 .nav-link:hover{
   border-bottom: 3px solid #fff;
-  transition: all .4s;
+  transition: all .8s;
   color:#000;
   font-weight: 500;
   font-size: 25px;

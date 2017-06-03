@@ -13,7 +13,6 @@ class Article extends Component {
     }
   }
 
-
   componentWillMount(){
     if(this.props.user){
         fetch(`http://localhost:3000/api/v1/favorites/favs`, {
@@ -50,17 +49,12 @@ class Article extends Component {
 
 
    const date =  Date.now()
-   const useSource = this.props.list.find(article => {
-      if(article.source == this.props.source){
-        return article
-      }
-  })
 
   fetch(`http://localhost:3000/api/v1/news`, {
     method: "PUT",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      id: useSource.id,
+      id: this.props.useSource.id,
       type: type,
       updated_at:date
     })
@@ -78,6 +72,9 @@ class Article extends Component {
   }
 
   handleVote(type){
+    if(this.props.user==""){
+      console.log('voteeee')
+}
 
     let voteType = type == 'conservative' ? "con": "lib"
     fetch(`http://localhost:3000/api/v1/add${voteType}`,{
@@ -87,21 +84,21 @@ class Article extends Component {
         user_id:this.props.user.id,
         extra_key:this.props.user.id+this.props.article.title
       })
-    }).then(res => res.json())
-      .then(res => {
-        if(res.name=="error"){
-          this.setState({bottomCardMessage:"already voted on",showInfo:false})
-        }else{
-          type=="conservative" ?
-          this.props.handleAddCon(res) : this.props.handleAddLib(res)
-          this.handleError()
-      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      res.name=="error" ?
+      (this.setState({bottomCardMessage:"already voted    on",showInfo:false}))
+       :
+      type=="conservative" ?
+      this.props.handleAddCon(res) : this.props.handleAddLib(res)
+      this.handleError()
       })
-      .catch(err => console.log(err))
+    .catch(err => console.log(err))
   }
 
   handleError(){
-    setTimeout(() => { this.setState({showInfo:true}) }, 3000)
+    setTimeout(() => { this.setState({showInfo:true}) }, 2000)
   }
 
   handleFavorites(){
@@ -129,10 +126,11 @@ class Article extends Component {
         created_at:month+" "+day+" "+year,
         updated_at:month+" "+day+" "+year
       })
-    }).then(response => response.json())
-      .then(response => this.handleResponse(response))
-      .catch(error => console.log(error,"error message")))
-    :
+    })
+    .then(response => response.json())
+    .then(response => this.handleResponse(response))
+    .catch(error => console.log(error,"error message")))
+     :
     (this.setState({bottomCardMessage:"Please log in to save a article",showInfo:false}),
     this.handleError())
   }
@@ -153,8 +151,8 @@ class Article extends Component {
         key: this.props.user.id+this.props.article.title
       })
     })
-      .then(response => this.refreshList())
-      .catch(error => console.log(error,"error in delete"))
+    .then(response => this.refreshList())
+    .catch(error => console.log(error,"error in delete"))
 }
 
 
@@ -174,24 +172,19 @@ class Article extends Component {
 
 
   renderButton(){
-  return  this.props.btnType==="save"?
-        <button className="favorite-button"
-         onClick={()=>{this.handleFavorites()}}>{this.props.btnType}</button>
-        :
-        <button
-         onClick={()=>{this.handleDeleteFavorite()}}
-         className="favorite-button">{this.props.btnType}</button>
+  return this.props.btnType==="save" ?
+          <button className="favorite-button"
+           onClick={()=>{this.handleFavorites()}}>{this.props.btnType}</button>
+          :
+          <button
+           onClick={()=>{this.handleDeleteFavorite()}}
+           className="favorite-button">{this.props.btnType}</button>
   }
 
   bottomMessage(){
-    const useSource = this.props.list.find(article => {
-       if(article.source == this.props.source){
-         return article
-       }
-     })
 
     return this.state.showInfo?
-              `conservative: ${useSource.conservative} liberal: ${useSource.liberal}`
+              `conservative: ${this.props.useSource.conservative} liberal: ${this.props.useSource.liberal}`
               :
               this.state.bottomCardMessage
   }
@@ -205,7 +198,22 @@ class Article extends Component {
     }
   }
 
+
+
+
   render(){
+    const con = this.props.useSource.conservative
+    const lib = this.props.useSource.liberal
+    const percent =  con > lib ? lib/con : con/lib
+    const color =  con > lib ? '#f70909' : '263fff'
+    const messageStyle = {
+      borderStyle: 'solid',
+      borderWidth: '3px',
+      borderImage: `linear-gradient(to left, rgba(0, 0, 0, 1) 1%, rgba(0, 255, 255, 1) 50%, rgba(0, 0, 0, 1) 100%)
+              100% 0 100% 0/3px 0 3px 0 stretch`
+    }
+
+
   return(
     <article className = "article">
      <div
@@ -232,7 +240,8 @@ class Article extends Component {
         </div>
       </div>
       <div className = "bottom-card">
-        <div className="bottom-message">{this.bottomMessage()}</div>
+        <div style={messageStyle} className="bottom-message">{this.bottomMessage()}</div>
+        <div className="underline-bottom-message"></div>
         <div className="bottom-card-content">{this.props.article.description}
         </div>
       </div>

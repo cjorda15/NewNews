@@ -14,7 +14,7 @@ describe('Login test', () => {
   }
 
   const mockCalls = () => {
-    fetchMock.get('http://localhost:3000/api/v1/user/users', {
+    fetchMock.post('http://localhost:3000/api/v1/user/users', {
       status: 200,
       ok: true,
       body: userResponse
