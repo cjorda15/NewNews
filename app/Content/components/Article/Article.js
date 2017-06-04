@@ -23,30 +23,27 @@ class Article extends Component {
           })
         })
         .then( response => response.json())
-        .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})
-        })
+        .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})})
         .catch(error => console.log(error,"error message"))
     }
   }
 
+  handleError(){
+    setTimeout(() => { this.setState({showInfo:true})}, 2000)
+  }
+
   handleOnClick(type){
+    if(this.state.conClicked||this.state.libClicked){
+      this.setState({bottomCardMessage:"already voted on",showInfo:false})
+      this.handleError()
+      return null
+    }
+
     if(this.props.user){
       this.handleVote(type)
     }
 
-    if(type =='conservative'&& this.state.conClicked==true){
-      this.setState({bottomCardMessage:"already voted on news source",showInfo:false})
-      this.handleError()
-      return null
-    }
-    if(type=="liberal" && this.state.libClicked==true){
-      this.setState({bottomCardMessage:"already voted on news source",showInfo:false})
-      this.handleError()
-      return null
-    }
-
-     type == "conservative"? this.setState({conClicked:true}) :  this.setState({libClicked:true})
-
+   type == "conservative"? this.setState({conClicked:true}) :  this.setState({libClicked:true})
 
    const date =  Date.now()
 
@@ -57,26 +54,23 @@ class Article extends Component {
       id: this.props.useSource.id,
       type: type,
       updated_at:date
-    })
-  })
+     })
+   })
     .then(response => response.json())
     .then(response => this.updateList())
     .catch(error => console.log(error,"error message"))
  }
 
   updateList(){
-
     fetch(`http://localhost:3000/api/v1/news`)
-      .then(response => response.json()).then(response => this.props.handleBuildList(response)).
-      then(response => console.log('response bah ', response))
+      .then(response => response.json())
+      .then(response => this.props.handleBuildList(response))
+      .catch(error => console.log(error,"error"))
   }
 
   handleVote(type){
-    if(this.props.user==""){
-      console.log('voteeee')
-}
+    const voteType = type == 'conservative' ? "con": "lib"
 
-    let voteType = type == 'conservative' ? "con": "lib"
     fetch(`http://localhost:3000/api/v1/add${voteType}`,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
@@ -88,17 +82,13 @@ class Article extends Component {
     .then(res => res.json())
     .then(res => {
       res.name=="error" ?
-      (this.setState({bottomCardMessage:"already voted    on",showInfo:false}))
+      (this.setState({bottomCardMessage:"already voted on",showInfo:false}))
        :
       type=="conservative" ?
       this.props.handleAddCon(res) : this.props.handleAddLib(res)
       this.handleError()
       })
     .catch(err => console.log(err))
-  }
-
-  handleError(){
-    setTimeout(() => { this.setState({showInfo:true}) }, 2000)
   }
 
   handleFavorites(){
@@ -172,17 +162,21 @@ class Article extends Component {
 
 
   renderButton(){
-  return this.props.btnType==="save" ?
-          <button className="favorite-button"
-           onClick={()=>{this.handleFavorites()}}>{this.props.btnType}</button>
-          :
-          <button
-           onClick={()=>{this.handleDeleteFavorite()}}
-           className="favorite-button">{this.props.btnType}</button>
+    return this.props.btnType==="save" ?
+            <button
+              className="favorite-button"
+               onClick={()=>{this.handleFavorites()}}>
+               {this.props.btnType}
+             </button>
+             :
+            <button
+             onClick={()=>{this.handleDeleteFavorite()}}
+             className="favorite-button">
+             {this.props.btnType}
+            </button>
   }
 
   bottomMessage(){
-
     return this.state.showInfo?
               `conservative: ${this.props.useSource.conservative} liberal: ${this.props.useSource.liberal}`
               :
@@ -197,9 +191,6 @@ class Article extends Component {
 
     }
   }
-
-
-
 
   render(){
     const con = this.props.useSource.conservative
@@ -221,8 +212,10 @@ class Article extends Component {
         style={{ backgroundImage: `url(${this.props.article.urlToImage})` }}
       >
       <div className="card-content">
-        <span className="card-background-container">{this.props.article.title}</span>
-      </div>
+          <span
+            className="card-background-container">{this.props.article.title}
+          </span>
+        </div>
       </div>
       <div className = "middle-of-card">
         <a className = "middle-of-card-link" href={this.props.article.url}>link to article</a>
@@ -242,11 +235,11 @@ class Article extends Component {
       <div className = "bottom-card">
         <div style={messageStyle} className="bottom-message">{this.bottomMessage()}</div>
         <div className="underline-bottom-message"></div>
-        <div className="bottom-card-content">{this.props.article.description}
-        </div>
+        <div className="bottom-card-content">{this.props.article.description}</div>
       </div>
     </article>
   )
  }
 }
+
 export default Article

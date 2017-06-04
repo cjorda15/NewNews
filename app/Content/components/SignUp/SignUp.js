@@ -48,38 +48,32 @@ class SignUp extends Component {
         })
         .then(response => response.json())
         .then(response => this.createUser(response))
-        .catch( error => {
-          console.log(error,"error-message")
-        }
-        )
-
+        .catch( error => {console.log(error,"error-message")})
       }
   }
 
   render(){
-
-  return(
-    <div className="signup">
-      <input
-        type = "text"
-        placeholder = "enter your name"
-        value = {this.state.name}
-        onChange={(e)=>{this.setState({name:e.target.value,error:""})}}/>
-      <input
-        type = "text"
-        placeholder = "enter your password"
-        value = {this.state.password}
-        onChange={(e)=>{this.setState({password:e.target.value,error:""})}}/>
-      <input
-        type = "text"
-        placeholder = "enter your password again"
-        value = {this.state.retypePassword}
-        onChange={(e)=>{this.setState({retypePassword:e.target.value,error:""})}}/>
-      <button  onClick={() => {this.handleClick()}}>Submit</button>
-      <div className="error-message">{this.state.error}</div>
-
-    </div>
-  )
+    return(
+      <div className="signup">
+        <input
+          type = "text"
+          placeholder = "enter your name"
+          value = {this.state.name}
+          onChange={(e)=>{this.setState({name:e.target.value,error:""})}}/>
+        <input
+          type = "text"
+          placeholder = "enter your password"
+          value = {this.state.password}
+          onChange={(e)=>{this.setState({password:e.target.value,error:""})}}/>
+        <input
+          type = "text"
+          placeholder = "enter your password again"
+          value = {this.state.retypePassword}
+          onChange={(e)=>{this.setState({retypePassword:e.target.value,error:""})}}/>
+        <button  onClick={() => {this.handleClick()}}>Submit</button>
+        <div className="error-message">{this.state.error}</div>
+      </div>
+    )
   }
 }
 

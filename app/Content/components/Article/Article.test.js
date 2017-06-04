@@ -18,25 +18,26 @@ describe('Article test', () => {
       status: 200,
       ok: true,
       body: favResponse
-      })
+    })
 
-    fetchMock.get('*', {
+   fetchMock.get('*', {
     status: 200,
     ok: true,
     body: favResponse
-  })
-    fetchMock.post('*', {
+   })
+
+   fetchMock.post('*', {
     status: 200,
     ok: true,
     body: favResponse
     })
 
   fetchMock.delete('*', {
-  status: 200,
-  ok: true,
-  body: favResponse
-  })
-}
+    status: 200,
+    ok: true,
+    body: favResponse
+    })
+ }
 
   mockCalls()
 
@@ -97,6 +98,6 @@ describe('Article test', () => {
                               useSource={{conservative:12,liberal:23}}/>)
     const conBtn = wrapper.find('.con-img')
     conBtn.simulate('click');
-    
+
  })
 })

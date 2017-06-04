@@ -7,7 +7,7 @@ import { showFavorites } from '../../actions'
 const mapStateToProps = (state) => {
   return {
     favorites : state.favorites.list,
-    user      : state.user.id
+    user      : state.user.id,
   }
 }
 const mapDispatchToProps = (dispatch) => {
