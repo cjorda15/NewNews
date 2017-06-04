@@ -25,15 +25,17 @@ class Favorites extends Component {
     if(!this.props.favorites){
       return <div className="log-in-message-favs">log in or sign up please</div>
     }
+    let useSource ={conservative:0, liberal:0}
     return  this.props.favorites.length>0?
               this.props.favorites.map((item,i) => {
                item.urlToImage = item.img_url
-                return <ArticleContainer
-                          handleShowFavorites={this.props.handleShowFavorites}
-                          user= {{id:this.props.user}}
-                          key={i}
-                          article={item}
-                          btnType={"delete"}/>
+               return <ArticleContainer
+                        useSource = {useSource}
+                        handleShowFavorites={this.props.handleShowFavorites}
+                        user= {{id:this.props.user}}
+                        key={i}
+                        article={item}
+                        btnType={"delete"}/>
                     })
               :
               <div className="no-favorites-message">keeping articles not your thing?</div>

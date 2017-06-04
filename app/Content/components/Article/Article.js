@@ -68,13 +68,10 @@ class Article extends Component {
 
     fetch(`http://localhost:3000/api/v1/news`)
       .then(response => response.json()).then(response => this.props.handleBuildList(response)).
-      then(response => console.log('response bah ', response))
+      catch(error => console.log(error,"error"))
   }
 
   handleVote(type){
-    if(this.props.user==""){
-      console.log('voteeee')
-}
 
     let voteType = type == 'conservative' ? "con": "lib"
     fetch(`http://localhost:3000/api/v1/add${voteType}`,{
