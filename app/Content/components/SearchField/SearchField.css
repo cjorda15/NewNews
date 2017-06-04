@@ -1,0 +1,9 @@
+.search-container-criteria, .search-container-list{
+padding-top: 15px;
+}
+
+.search-container-criteria select, .search-container-list select{
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+}

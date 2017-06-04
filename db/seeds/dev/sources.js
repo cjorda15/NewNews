@@ -44,13 +44,13 @@ exports.seed = function(knex, Promise) {
       ]);
     });
 
-
-
-exports.down = function(knex, Promise) {
-  return Promise.all([
-    knex.schema.dropTable('news'),
-  ]);
-};
+// 
+//
+// exports.down = function(knex, Promise) {
+//   return Promise.all([
+//     knex.schema.dropTable('news'),
+//   ]);
+// };
 
 
 }

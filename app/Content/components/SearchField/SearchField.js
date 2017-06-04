@@ -3,6 +3,7 @@ import ListSourceContainer from '../ListSource/ListSourceContainer'
 import ListCriteriaContainer from '../ListCriteria/ListCriteriaContainer'
 import ListSourceConContainer from '../ListSource/ListSourceConContainer'
 import ListSourceLibContainer from '../ListSource/ListSourceLibContainer'
+import styles from './SearchField.css'
 
 class SearchField extends Component {
   constructor(props){
@@ -10,56 +11,48 @@ class SearchField extends Component {
     this.state = {}
   }
 
+
   handleClick(){
+    fetch(`http://localhost:3000/api/v1/news`)
+      .then(response => response.json()).then(response => this.props.handleBuildList(response))
+      .then(response => this.addArticles())
+  }
+
+  addArticles(){
     const endpoint =
- `https://newsapi.org/v1/articles?source=${this.props.source}&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
+    `https://newsapi.org/v1/articles?source=${this.props.source}&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
     fetch(endpoint).then(resp =>resp.json()).then(data => {
       const {articles} = data
       this.props.handleAddArticles(articles)
-      })
-    }
+    })
+  }
 
-  blah(){
+  updateList(){
     fetch(`http://localhost:3000/api/v1/news`)
-      .then(response => response.json()).then(response => console.log(response))
+      .then(response => response.json()).then(response => this.props.handleBuildList(response))
   }
 
   listSource(){
     switch(this.props.criteria){
       case 'alphabetical':
-        return <ListSourceContainer/>
+        return <ListSourceContainer handleNewList={this.handleClick.bind(this)}/>
       case 'most conservative':
-        return <ListSourceConContainer/>
+        return <ListSourceConContainer handleNewList={this.handleClick.bind(this)}/>
       case 'most liberal':
-          return <ListSourceLibContainer/>
+          return <ListSourceLibContainer handleNewList={this.handleClick.bind(this)}/>
       default:
-        return  <ListSourceContainer/>
+        return  <ListSourceContainer handleNewList={this.handleClick.bind(this)}/>
       }
     }
-
-
 
   render(){
     return(
     <div className="search-field-container">
-      <div className="search-container-criteria">
-        <div className="search-container-number">
-        1
-        </div>
-        <ListCriteriaContainer/>
+    <div className="search-container-criteria">
+    <ListCriteriaContainer handleNewList={this.handleClick.bind(this)}/>
       </div>
       <div className="search-container-list">
-      <div className="search-container-number">
-        2
-      </div>
       {this.listSource()}
-      </div>
-      <div className="search-button-container">
-        <div className="search-container-number">
-        3
-        </div>
-        <button onClick={()=>{this.handleClick()}}>Submit</button>
-        <button onClick={()=>{this.blah()}}>grr</button>
       </div>
     </div>
     )

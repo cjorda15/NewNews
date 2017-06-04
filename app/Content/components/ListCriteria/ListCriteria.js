@@ -1,8 +1,12 @@
 import React from 'react'
 
-const ListCriteria = ({handleChangeCriteria}) => {
+const ListCriteria = ({handleChangeCriteria, handleNewList}) => {
+
   return(
-    <select onChange={(e)=>{handleChangeCriteria(e.target.value)}}>
+    <select onChange={(e)=>{
+      handleChangeCriteria(e.target.value)
+      handleNewList(e.target.value)
+      }}>
       <option>
         alphabetical
       </option>

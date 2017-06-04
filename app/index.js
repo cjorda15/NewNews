@@ -27,7 +27,9 @@ class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Content/>
+        <Router history ={history}>
+          < Route to ='/' component ={Content}/>
+        </Router>
       </Provider>
     )
   }

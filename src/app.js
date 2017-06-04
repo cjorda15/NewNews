@@ -1,4 +1,3 @@
-// const Server = require('./server');
 const path = require('path');
 const express = require('express');
 const cors = require('express-cors');
@@ -6,12 +5,10 @@ const bodyParser = require('body-parser')
 const port = (process.env.PORT || 3000);
 const app = express();
 const router = require('./router');
-
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../knexfile')[environment];
 const database = require('knex')(configuration);
-
-
+const knex = "knex"
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -31,14 +28,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 
-app.use('/assets', express.static(path.join(__dirname, '../app/assets')));
+app.use(express.static(path.join(__dirname, '../app')));
 
 app.get('/', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 
-// app.use('/api', router);
-// app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
-
-app.listen(port);
 
 console.log(`Listening at http://localhost:${port}`);
 
@@ -53,6 +46,61 @@ app.get('/api/v1/news', (request, response) => {
     });
 });
 
+app.get('/api/v1/user', (request, response) => {
+  database('user').select()
+    .then(news => {
+      response.status(200).json(news);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
+});
+
+app.get('/api/v1/favorites', (request, response) => {
+  database('favorites').select()
+    .then(favorites => {
+      response.status(200).json(favorites);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
+});
+
+app.post('/api/v1/favorites',
+ (request,response) => {
+   const favorite = request.body
+   database('favorites').insert(favorite,'description')
+   .then(favorite => { response.send(favorite) })
+   .catch(err => response.send(err))
+ })
+
+ app.post('/api/v1/favorites/favs', (request,response) => {
+   database('favorites').where({
+      user_id:request.body.id
+   }).then(user => response.send(user))
+      .catch(err => console.log(err,"error-message"))
+ })
+
+ app.delete('/api/v1/favorites/delete', (request,response) => {
+   database('favorites').where({
+      extra_key:request.body.key
+   }).del().then(user => response.status(200).json({user}))
+      .catch(err => console.log(err,"error-messag"))
+ })
+
+app.post('/api/v1/user/users', (request, response) => {
+  database('user').where({
+                  name: request.body.name,
+                  password: request.body.password
+                })
+    .select('id').select('name')
+    .then(user => response.status(200).json({user}))
+    .catch(error => {
+    console.error('error: ', error)
+  });
+});
+
+
 app.get('/api/v1/news/:source', (request, response) => {
   database('news').where('source', request.params.source).select()
     .then(news => {
@@ -63,17 +111,84 @@ app.get('/api/v1/news/:source', (request, response) => {
     });
 });
 
+app.put('/api/v1/news',(req,res) => {
+  database('news').where('id', req.body.id).select()
+   .update({
+    'updated_at': req.body.date,
+    [req.body.type]: database.raw(`${req.body.type} + 1`)
+  })
+   .then(news => {
+    res.status(200).json(news)
+  }).catch(error => {
+    console.log('error', error)
+  })
+})
+
+app.post('/api/v1/user', (request, response) => {
+
+  const user = request.body;
+  database('user').insert(user,'id')
+   .then(user => {
+    response.send(user)
+    //  response.send(response.body);
+    // response.send(user)
+}).then(response => console.log(response))
+   .catch(error => {
+     console.log(error)
+  response.send(error);
+  });
+});
+
+app.get('/api/v1/getcon', (request, response) => {
+  database('conservative').select()
+    .then(list => {
+      response.status(200).json(list);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
+});
 
 
-// app.post('/api/v1/news', (request, response) => {
-//   const news = {source: 'msnbc', conservative: 5, liberal: 2}
-//
-//
-//   database('news').insert(news)
-//     .then(news => {
-//       console.log(news)
-//     })
-//     .catch(error => {
-//       console.error('error: ', error);
-//     });
-// });
+
+app.get('/api/v1/getlib', (request, response) => {
+  database('liberal').select()
+    .then(list => {
+      response.status(200).json(list);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
+});
+
+app.post('/api/v1/addcon', (request, response) => {
+  const con = request.body;
+  console.log(con);
+  database('conservative').insert(con,'id')
+   .then(user => {
+    response.json(con)
+})
+   .catch(error => {
+     console.log(error,'addcon,app error')
+  response.send(error);
+  })
+})
+
+app.post('/api/v1/addlib', (request, response) => {
+  const lib = request.body;
+  console.log(lib);
+  database('liberal').insert(lib,'id')
+   .then(user => {
+     console.log(lib,'addlib,app');
+    response.send(lib)
+})
+   .catch(error => {
+     console.log(error,'addcon,app error')
+  response.send(error);
+  })
+})
+
+
+app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
+
+app.listen(port);

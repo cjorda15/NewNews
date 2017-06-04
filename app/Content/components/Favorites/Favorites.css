@@ -1,0 +1,15 @@
+.favorites-container{
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding:15px;
+  display: flex;
+}
+
+
+.no-favorites-message, .log-in-message-favs{
+  font-size: 42px;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: cornflowerblue;
+  color: #fff;
+}

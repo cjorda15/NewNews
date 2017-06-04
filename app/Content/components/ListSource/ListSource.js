@@ -5,7 +5,10 @@ class ListSource extends Component {
 render(){
 
 return (
-  <select onChange={(e)=>{this.props.handleAddSource(e.target.value)}} >
+  <select onChange={(e)=>{
+    this.props.handleAddSource(e.target.value)
+    this.props.handleNewList()
+  }} >
     <option>
       abc-news-au
     </option>
