@@ -5,10 +5,6 @@ import fetchMock from 'fetch-mock'
 
 
 describe('Article test', () => {
-  const article=
-  {urlToImage:"newsImg",title:"Invade iran",url:'http:blah',description:"We invaded"}
-
-  const wrapper = shallow(<Article user={{id:2}} list={["weee"]} article={article}/>)
 
   const favResponse = {
     data: {
@@ -29,13 +25,29 @@ describe('Article test', () => {
     ok: true,
     body: favResponse
   })
-  fetchMock.post('*', {
+    fetchMock.post('*', {
+    status: 200,
+    ok: true,
+    body: favResponse
+    })
+
+  fetchMock.delete('*', {
   status: 200,
   ok: true,
   body: favResponse
-})
+  })
 }
 
+  mockCalls()
+
+  const article=
+  {urlToImage:"newsImg",title:"Invade iran",url:'http:blah',description:"We invaded"}
+
+  const wrapper = shallow(<Article
+                           user={{id:2}}
+                           list={["weee"]}
+                           article={article}
+                           useSource={{conservative:12,liberal:23}}/>)
 
   it('should render without crashing', () => {
   expect(wrapper.length).toEqual(1)
@@ -55,13 +67,36 @@ describe('Article test', () => {
    expect(wrapper.find('.bottom-card').length).toEqual(1)
   })
 
-  it('should hande a save on the article',() => {
+  it('should handle api calls when mounted',() => {
     mockCalls()
     const spy = jest.fn()
-    const wrapper = shallow(<Article list={["weee"]} article={article}/>)
-    const saveBtn = wrapper.find('button')
-    saveBtn.simulate('click')
-    console.log(saveBtn);
+    const wrapper = shallow(<Article
+                              handleShowFavorites={spy}
+                              user={{id:1,name:"chris"}}
+                              list={["weee"]}
+                              article={article}
+                              useSource={{conservative:12,liberal:23}}/>)
+    expect(fetchMock.called()).toEqual(true)
   })
 
+  it('should do sturff', () => {
+    const mockCalls = () => {
+      fetchMock.put('http://localhost:3000/api/v1/news', {
+        status: 200,
+        ok: true,
+        body: favResponse
+        })
+ }
+    mockCalls()
+    const spy = jest.fn()
+    const wrapper = shallow(<Article
+                              handleShowFavorites={spy}
+                              user={{id:1,name:"chris"}}
+                              list={["weee"]}
+                              article={article}
+                              useSource={{conservative:12,liberal:23}}/>)
+    const conBtn = wrapper.find('.con-img')
+    conBtn.simulate('click');
+    
+ })
 })

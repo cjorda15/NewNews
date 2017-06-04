@@ -205,11 +205,10 @@ class Article extends Component {
     const con = this.props.useSource.conservative
     const lib = this.props.useSource.liberal
     const total = con + lib
-    const libPercent = Math.floor(con/total*100)
-    const conPercent= Math.floor(lib/total*100)
+    const percent= Math.floor(con/total*100)
     const messageStyle = {
       color: '#fff',
-      backgroundImage:`-webkit-gradient(linear, left bottom, left top, color-stop(0.${conPercent}, red), color-stop(0.${libPercent}, #3a4ed5))`,
+      backgroundImage:`-webkit-gradient(linear, left bottom, left top, color-stop(0.${percent}, red), color-stop(0.${percent}, #3a4ed5))`,
       borderRadius: '4px',
       padding: '7px'
     }

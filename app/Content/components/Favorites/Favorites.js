@@ -8,16 +8,17 @@ class Favorites extends Component {
   }
 
   componentWillMount(){
-        fetch(`http://localhost:3000/api/v1/favorites/favs`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            id: this.props.user
-          })
-        })
-        .then( response => response.json())
-        .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user})
-        })
+    fetch(`http://localhost:3000/api/v1/favorites/favs`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        id: this.props.user
+      })
+    })
+    .then( response => response.json())
+    .then( res => {
+      this.props.handleShowFavorites({list:res, id: this.props.user})
+    })
   }
 
   renderFavorites(){
@@ -27,7 +28,7 @@ class Favorites extends Component {
     return  this.props.favorites.length>0?
               this.props.favorites.map((item,i) => {
                item.urlToImage = item.img_url
-                return   <ArticleContainer
+                return <ArticleContainer
                           handleShowFavorites={this.props.handleShowFavorites}
                           user= {{id:this.props.user}}
                           key={i}
