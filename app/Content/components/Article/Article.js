@@ -29,6 +29,10 @@ class Article extends Component {
     }
   }
 
+  handleError(){
+    setTimeout(() => { this.setState({showInfo:true})}, 2000)
+  }
+
   handleOnClick(type){
     if(this.props.user){
       this.handleVote(type)
@@ -72,6 +76,11 @@ class Article extends Component {
   }
 
   handleVote(type){
+    if(this.state.conClicked||this.state.libClicked){
+      this.setState({bottomCardMessage:"already voted on",showInfo:false})
+      this.handleError()
+      return null
+    }
 
     let voteType = type == 'conservative' ? "con": "lib"
     fetch(`http://localhost:3000/api/v1/add${voteType}`,{
@@ -85,17 +94,13 @@ class Article extends Component {
     .then(res => res.json())
     .then(res => {
       res.name=="error" ?
-      (this.setState({bottomCardMessage:"already voted    on",showInfo:false}))
+      (this.setState({bottomCardMessage:"already voted on",showInfo:false}))
        :
       type=="conservative" ?
       this.props.handleAddCon(res) : this.props.handleAddLib(res)
       this.handleError()
       })
     .catch(err => console.log(err))
-  }
-
-  handleError(){
-    setTimeout(() => { this.setState({showInfo:true}) }, 2000)
   }
 
   handleFavorites(){
