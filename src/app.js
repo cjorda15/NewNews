@@ -76,15 +76,16 @@ app.post('/api/v1/favorites',
 
  app.post('/api/v1/favorites/favs', (request,response) => {
    database('favorites').where({
-      user_id:request.body.id
-   }).then(user => response.send(user))
+      user_id:request.body.id})
+      .then(user => response.send(user))
       .catch(err => console.log(err,"error-message"))
  })
 
  app.delete('/api/v1/favorites/delete', (request,response) => {
    database('favorites').where({
       extra_key:request.body.key
-   }).del().then(user => response.status(200).json({user}))
+   }).del()
+      .then(user => response.status(200).json({user}))
       .catch(err => console.log(err,"error-messag"))
  })
 
@@ -103,91 +104,59 @@ app.post('/api/v1/user/users', (request, response) => {
 
 app.get('/api/v1/news/:source', (request, response) => {
   database('news').where('source', request.params.source).select()
-    .then(news => {
-      response.status(200).json(news);
-    })
-    .catch(error => {
-      console.error('error: ', error);
-    });
+    .then(news => {response.status(200).json(news)})
+    .catch(error => {console.error('error: ', error)});
 });
 
 app.put('/api/v1/news',(req,res) => {
   database('news').where('id', req.body.id).select()
    .update({
     'updated_at': req.body.date,
-    [req.body.type]: database.raw(`${req.body.type} + 1`)
-  })
+    [req.body.type]: database.raw(`${req.body.type} + 1`)})
    .then(news => {
-    res.status(200).json(news)
-  }).catch(error => {
+    res.status(200).json(news)})
+   .catch(error => {
     console.log('error', error)
   })
 })
 
 app.post('/api/v1/user', (request, response) => {
-
   const user = request.body;
   database('user').insert(user,'id')
-   .then(user => {
-    response.send(user)
-    //  response.send(response.body);
-    // response.send(user)
-}).then(response => console.log(response))
-   .catch(error => {
-     console.log(error)
-  response.send(error);
-  });
-});
+   .then(user => {response.send(user)})
+   .then(response => console.log(response))
+   .catch(error => {console.log(error)
+     response.send(error)})
+})
 
 app.get('/api/v1/getcon', (request, response) => {
   database('conservative').select()
-    .then(list => {
-      response.status(200).json(list);
-    })
-    .catch(error => {
-      console.error('error: ', error)
-    });
-});
+    .then(list => {response.status(200).json(list)})
+    .catch(error => {console.error('error: ', error)})
+})
 
 
 
 app.get('/api/v1/getlib', (request, response) => {
   database('liberal').select()
-    .then(list => {
-      response.status(200).json(list);
-    })
-    .catch(error => {
-      console.error('error: ', error)
-    });
+    .then(list => {response.status(200).json(list)})
+    .catch(error => {console.error('error: ', error)})
 });
 
 app.post('/api/v1/addcon', (request, response) => {
   const con = request.body;
-  console.log(con);
   database('conservative').insert(con,'id')
-   .then(user => {
-    response.json(con)
-})
-   .catch(error => {
-     console.log(error,'addcon,app error')
-  response.send(error);
-  })
+   .then(user => {response.json(con)})
+   .catch(error => {console.log(error,'addcon,app error'); response.send(error)})
 })
 
 app.post('/api/v1/addlib', (request, response) => {
   const lib = request.body;
-  console.log(lib);
   database('liberal').insert(lib,'id')
-   .then(user => {
-     console.log(lib,'addlib,app');
-    response.send(lib)
-})
-   .catch(error => {
-     console.log(error,'addcon,app error')
-  response.send(error);
+   .then(user => {response.send(lib)})
+   .catch(error => {console.log(error,'addcon,app error'); response.send(error);
   })
 })
-
 
 app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 

@@ -7,17 +7,14 @@ describe('LogOut test', () => {
   const wrapper = shallow(<LogOut/>)
 
   it('should be able to render', () => {
-
     expect(wrapper.length).toEqual(1)
   })
 
   it('should have a className', () => {
-
     expect(wrapper.hasClass('logout-container')).toEqual(true)
   })
 
   it('should have a button that can change the history back to the root url and fires off a action to login', () => {
-
     const spy = jest.fn()
     let history = {
       history:{

@@ -30,17 +30,16 @@ class ListSourceLib extends  Component{
       return <option key={id}>{obj.source}</option>
     })
   }
+
   render(){
-
-
-  return(
-    <select onChange={(e)=>{
-      this.props.handleAddSource(e.target.value)
-      this.props.handleNewList()
-    }} >
-      {this.renderList()}
-    </select>
-  )
+    return(
+      <select onChange={(e)=>{
+        this.props.handleAddSource(e.target.value)
+        this.props.handleNewList()
+      }} >
+        {this.renderList()}
+      </select>
+    )
   }
  }
 

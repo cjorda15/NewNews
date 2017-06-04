@@ -14,40 +14,33 @@ class Content extends Component {
     constructor(props){
       super(props)
     }
+  componentDidMount(){
+    const endpoint =
+    `https://newsapi.org/v1/articles?source=abc-news-au&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
 
-componentDidMount(){
-  const endpoint =
-  `https://newsapi.org/v1/articles?source=abc-news-au&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
+    fetch(`http://localhost:3000/api/v1/news`)
+      .then(response => response.json()).then(response => this.props.handleBuildList(response))
 
-  fetch(`http://localhost:3000/api/v1/news`)
-    .then(response => response.json()).then(response => this.props.handleBuildList(response))
-
-      
-      fetch(endpoint).then(resp =>resp.json()).then(data => {
-        const {articles} = data
-        this.props.handleAddArticles(articles)
-      })
-
-}
-
-
+    fetch(endpoint)
+    .then(resp =>resp.json())
+    .then(data => {const {articles} = data
+      this.props.handleAddArticles(articles)
+    })
+  }
 
 render(){
   return(
       <div className="content">
         <NavBarContainer/>
         <Header/>
-
         <Switch>
         <Route path="/logout" render={(history) =>  <LogOutContainer history={history}/> }/>
-
           <Route path="/login" render={(history) =>  <LogInContainer history={history}/> }/>
           <Route path="/signup" render={({ history }) => <SignUpContainer history={history}/>}/>
           <Route path="/favorites" render={({history}) => <FavoritesContainer history={history}/>}/>
           <Route path="/" render={({ history }) =>
           <MainContent history ={history}/> } />
-
-          </Switch>
+        </Switch>
       </div>
   )
  }

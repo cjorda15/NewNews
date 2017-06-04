@@ -6,14 +6,14 @@ import { shallow, mount } from 'enzyme'
 
 describe('List test',() => {
   const article = [{stuff:'asdf'},{stuff2:'asdf'}]
-  const wrapper = mount(<List article={article}/>)
+  const wrapper = mount(<List />)
 
 
   it('should render',() => {
     expect(wrapper.length).toEqual(1)
   })
 
-  // it.skip('should be a main element', () => {
-  //   console.log(wrapper)
-  // })
+  it('should be a main element', () => {
+    expect(wrapper.hasClass('list-container')).toEqual(true)
+  })
 })

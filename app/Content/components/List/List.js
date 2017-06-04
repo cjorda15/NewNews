@@ -15,24 +15,22 @@ const List = ({articles, favorites, user,list,source}) => {
 
     return articles.map((article,index) =>{
       return (
-
         <ArticleContainer
-           useSource={useSource}
-           source = {source}
-           btnType ={'save'}
-           user={user}
-           index={index}
-           key={index}
-           article={article}
-         />
+          useSource={useSource}
+          source = {source}
+          btnType ={'save'}
+          user={user}
+          index={index}
+          key={index}
+          article={article}
+        />
       )
     })
-
-}
+  }
 
   return(
     <main className="list-container">
-    { articles ? renderList() : null }
+      { articles ? renderList() : null }
     </main>
   )
 }
