@@ -3,7 +3,7 @@ import {buildList, showFavorties, addArticles} from './actions'
 import React, {Component} from 'react';
 import Header  from './components/Header/Header.js'
 import MainContent from './components/MainContent/MainContent'
-import { Route, Link, Switch } from 'react-router-dom'
+import { Route, Link, Switch, Redirect } from 'react-router-dom'
 import SignUpContainer from './components/SignUp/SignUpContainer'
 import NavBarContainer from './components/NavBar/NavBarContainer'
 import LogInContainer from './components/LogIn/LogInContainer'
@@ -35,13 +35,25 @@ render(){
         <Header/>
         <Switch>
           <Route path="/logout" render={(history) => {
-            // if (!this.props.user) {
-            //   return <Redirect path='/' />
-            // }
-            return <LogOutContainer history={history}/> } } />
-          <Route path="/login" render={(history) =>  <LogInContainer history={history}/> }/>
-          <Route path="/signup" render={({ history }) => <SignUpContainer history={history}/>}/>
-          <Route path="/favorites" render={({history}) => <FavoritesContainer history={history}/>}/>
+          return !this.props.user?
+            <Redirect to='/' />
+             :
+            <LogOutContainer history={history}/> } } />
+          <Route path="/login" render={(history) => {
+            return this.props.user?
+           <Redirect to='/' />
+             :
+           <LogInContainer history={history}/> }}/>
+          <Route path="/signup" render={({ history }) => {
+            return this.props.user?
+            <Redirect to='/' />
+              :
+            <SignUpContainer history={history}/>}}/>
+          <Route path="/favorites" render={({history}) => {
+            return !this.props.user?
+            <Redirect to='/' />
+              :
+            <FavoritesContainer history={history}/>}}/>
           <Route path="/" render={({ history }) =>
           <MainContent history ={history}/> } />
         </Switch>
