@@ -14,9 +14,10 @@ class SignUp extends Component {
   }
 
   createUser(input){
-    input.name=='error'?
-                        this.setState({error:"user name already taken"})
-                        :
+    console.log(input);
+    // input.name=='error'?
+                        // this.setState({error:"user name already taken"})
+                        // :
                         (this.props.handleAddUser({id:input[0],name:this.state.name}),
                         this.props.history.replace('/'))
   }
@@ -48,7 +49,7 @@ class SignUp extends Component {
         })
         .then(response => response.json())
         .then(response => this.createUser(response))
-        .catch( error => {console.log(error,"error-message")})
+        .catch(this.setState({error:"user name already taken"}))
       }
   }
 

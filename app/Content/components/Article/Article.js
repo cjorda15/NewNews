@@ -69,7 +69,7 @@ class Article extends Component {
   }
 
   handleVote(type){
-    const voteType = type == 'conservative' ? "con": "lib"
+    const voteType = type === 'conservative' ? "con": "lib"
 
     fetch(`http://localhost:3000/api/v1/add${voteType}`,{
       method:"POST",
@@ -99,7 +99,6 @@ class Article extends Component {
     const year  = d.getFullYear()
     this.props.user?
 
-    (this.setState({bottomCardMessage:""}),
      fetch(`http://localhost:3000/api/v1/favorites`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -119,7 +118,7 @@ class Article extends Component {
     })
     .then(response => response.json())
     .then(response => this.handleResponse(response))
-    .catch(error => console.log(error,"error message")))
+    .catch(error => console.log(error,"error message"))
      :
     (this.setState({bottomCardMessage:"Please log in to save a article",showInfo:false}),
     this.handleError())
@@ -133,7 +132,6 @@ class Article extends Component {
   }
 
   handleDeleteFavorite(){
-
     fetch('http://localhost:3000/api/v1/favorites/delete', {
       method:'DELETE',
       headers: {'Content-Type':'application/json'},
@@ -159,13 +157,11 @@ class Article extends Component {
     .catch( err => console.log(err,"error in favs update in article"))
  }
 
-
-
   renderButton(){
     return this.props.btnType==="save" ?
             <button
               className="favorite-button"
-               onClick={()=>{this.handleFavorites()}}>
+              onClick={()=>{this.handleFavorites()}}>
                {this.props.btnType}
              </button>
              :
