@@ -30,7 +30,7 @@ class LogIn extends Component {
         <input
           value = {this.state.name}
           onChange={(e) => {this.setState({name:e.target.value})}}
-          placeholder="enter your name"/>
+          placeholder="enter your username"/>
         <input
           value = {this.state.password}
           onChange={(e) => {this.setState({password:e.target.value})}}

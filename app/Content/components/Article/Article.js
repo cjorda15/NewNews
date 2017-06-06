@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import styles from './Article.css'
 import knex from 'knex'
-import {apiShowFavorites, apiNewsSource, apiUpdateList, apiAddVote, apiAddFavorites,apiDeleteFavorties} from './apiHelpers'
+import {apiShowFavorites, apiNewsSource, apiUpdateList, apiAddVote, apiAddFavorites, apiDeleteFavorties} from './apiHelpers'
 
 class Article extends Component {
   constructor(props){
@@ -30,7 +30,7 @@ class Article extends Component {
     if(this.props.user){
       this.handleVote(type)
     }
-   apiNewsSource(this.props.useSource,this.updateList.bind(this),type)
+    apiNewsSource(this.props.useSource,this.updateList.bind(this),type)
   }
 
   updateList(){
@@ -48,7 +48,7 @@ class Article extends Component {
   handleResponse(response){
     response.name=='error'?
         (this.setState({showInfo:false,bottomCardMessage:"already saved"}),this.handleError())
-        :
+         :
         this.setState({showInfo:true})
   }
 
