@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {apiAddUser} from './apiHelper'
 import styles from  './SignUp.css'
 
 class SignUp extends Component {
@@ -19,34 +20,7 @@ class SignUp extends Component {
   }
 
   handleClick(){
-    const d     = new Date()
-    const month = d.getMonth()+1
-    const day   = d.getDate()
-    const year  = d.getFullYear()
-
-    if(!this.state.name||!this.state.password||!this.state.retypePassword){
-      this.setState({error:"please enter all the information that is required "})
-      return null
-    }
-
-    if(this.state.password!==this.state.retypePassword){
-      this.setState({error:"passwords must match"})
-      return null
-    }else{
-      fetch(`http://localhost:3000/api/v1/user/`,{
-        method:"POST",
-        headers:{"Content-Type": "application/json"},
-        body:JSON.stringify({
-            name:this.state.name,
-            password:this.state.password,
-            updated_at: month+" "+day+" "+year,
-            created_at: month+" "+day+" "+year
-          })
-        })
-        .then(response => response.json())
-        .then(response => this.createUser(response))
-        .catch(this.setState({error:"user name already taken"}))
-      }
+    apiAddUser(this.state.name,this.state.password,this.state.retypePassword,this.createUser.bind(this),this.setState.bind(this))
   }
 
   render(){
