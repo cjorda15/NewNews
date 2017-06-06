@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SearchField from './SearchField'
-import {addArticles, buildList} from '../../actions'
+import { addArticles, buildList } from '../../actions'
 
 const mapStateToProps = (state) => {
   return {

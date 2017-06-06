@@ -123,14 +123,13 @@ app.put('/api/v1/news',(req,res) => {
 app.post('/api/v1/user', (request, response, next) => {
   const user = request.body;
   database('user').insert(user,'id')
-   .then(user => { console.log('WOOT', user); response.send(user)})
-  //  .then(response => console.log(response))
+   .then(user => response.send(user))
    .catch(error => {console.log(error)
     next(error)})
 })
 
-app.get('/api/v1/getcon', (request, response) => {
-  database('conservative').select()
+app.get('/api/v1/getvote', (request, response) => {
+  database('votes').select()
     .then(list => {response.status(200).json(list)})
     .catch(error => {console.error('error: ', error)})
 })
@@ -143,11 +142,11 @@ app.get('/api/v1/getlib', (request, response) => {
     .catch(error => {console.error('error: ', error)})
 })
 
-app.post('/api/v1/addcon', (request, response) => {
-  const con = request.body;
-  database('conservative').insert(con,'id')
-   .then(user => {response.json(con)})
-   .catch(error => {console.log(error,'addcon,app error'); response.send(error)})
+app.post('/api/v1/addvote', (request, response) => {
+  const vote = request.body;
+  database('votes').insert(vote,'id')
+   .then(user => {response.json(vote)})
+   .catch(error => {console.log(error); response.send(error)})
 })
 
 app.post('/api/v1/addlib', (request, response) => {

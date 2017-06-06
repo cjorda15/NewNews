@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from  './LogIn.css'
+import { apiLogin } from './apiHelper'
 
 class LogIn extends Component {
   constructor(props){
@@ -12,25 +13,7 @@ class LogIn extends Component {
   }
 
   handleOnClick(){
-    const d     = new Date()
-    const month = d.getMonth()+1
-    const day   = d.getDate()
-    const year  = d.getFullYear()
-
-  fetch(`http://localhost:3000/api/v1/user/users`,{
-    method:"POST",
-    headers:{"Content-Type": "application/json"},
-    body:JSON.stringify({
-        name:this.state.name,
-        password:this.state.password,
-        updated_at: month+" "+day+" "+year
-      })
-    })
-    .then(response => response.json())
-    .then(response => this.handleResponse(response))
-    .catch(
-      error => console.log(error,"error-message")
-    )
+    apiLogin(this.state.name,this.state.password,this.handleResponse.bind(this))
  }
 
   handleResponse(input){

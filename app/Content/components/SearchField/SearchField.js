@@ -1,8 +1,9 @@
-import React,{Component} from 'react';
+import React,{ Component } from 'react';
 import ListSourceContainer from '../ListSource/ListSourceContainer'
 import ListCriteriaContainer from '../ListCriteria/ListCriteriaContainer'
 import ListSourceConContainer from '../ListSource/ListSourceConContainer'
 import ListSourceLibContainer from '../ListSource/ListSourceLibContainer'
+import { apiBuildList } from './apiHelper'
 import styles from './SearchField.css'
 
 class SearchField extends Component {
@@ -13,11 +14,7 @@ class SearchField extends Component {
 
 
   handleClick(){
-    fetch(`http://localhost:3000/api/v1/news`)
-      .then(response => response.json())
-      .then(response => this.props.handleBuildList(response))
-      .then(response => this.addArticles())
-      .catch(error => console.log(error))
+    apiBuildList(this.props.handleBuildList.bind(this),this.addArticles.bind(this))
   }
 
   addArticles(){

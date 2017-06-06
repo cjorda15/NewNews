@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Article from './Article'
-import { showFavorites, addFavorite, buildList, addCon, addLib } from '../../actions'
+import { showFavorites, addFavorite, buildList} from '../../actions'
 
 const mapStateToProps = (state) => {
   return{
@@ -21,12 +21,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleBuildList: (input) => {
       dispatch(buildList(input))
-    },
-    handleAddCon: (input) => {
-      dispatch(addCon(input))
-    },
-    handleAddLib: (input) => {
-      dispatch(addLib(input))
     }
   }
 }
