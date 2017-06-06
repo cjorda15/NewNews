@@ -8,9 +8,7 @@ class Article extends Component {
     super(props)
     this.state = {
       bottomCardMessage:"",
-      showInfo:true,
-      conClicked:false,
-      libClicked:false
+      showInfo:true
     }
   }
 
@@ -23,17 +21,15 @@ class Article extends Component {
   }
 
   handleOnClick(type){
-    if(this.state.conClicked||this.state.libClicked){
-      this.setState({bottomCardMessage:"already voted on",showInfo:false})
-      this.handleError()
-      return null
+    if(!this.props.user){
+        this.setState({bottomCardMessage:"please log in to vote",showInfo:false})
+          this.handleError()
+          return null
     }
 
     if(this.props.user){
       this.handleVote(type)
     }
-
-   type == "conservative"? this.setState({conClicked:true}) :  this.setState({libClicked:true})
 
    apiNewsSource(this.props.useSource,this.updateList.bind(this),type)
  }
@@ -43,9 +39,8 @@ class Article extends Component {
   }
 
   handleVote(type){
-    const voteType = type === 'conservative' ? "con": "lib"
 
-    apiAddVote(voteType,this.props.user,this.props.article,this.props.handleAddCon.bind(this),this.props.handleAddLib.bind(this),this.setState.bind(this),type)
+    apiAddVote(this.props.user,this.props.article,this.handleError.bind(this),this.setState.bind(this))
   }
 
   handleFavorites(){
@@ -70,10 +65,10 @@ class Article extends Component {
   renderButton(){
     return this.props.btnType==="save" ?
             <button
-              className="favorite-button"
-              onClick={()=>{this.handleFavorites()}}>
-               {this.props.btnType}
-             </button>
+             className="favorite-button"
+             onClick={()=>{this.handleFavorites()}}>
+             {this.props.btnType}
+            </button>
              :
             <button
              onClick={()=>{this.handleDeleteFavorite()}}

@@ -53,17 +53,3 @@ export const clearUser = () => {
     type:"CLEAR_USER"
   }
 }
-
-export const addCon = (input) => {
-  return{
-    type:"ADD_CON",
-    input
-  }
-}
-
-export const addLib = (input) => {
-  return{
-    type:"ADD_LIB",
-    input
-  }
-}

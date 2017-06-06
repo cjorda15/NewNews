@@ -37,8 +37,8 @@ export const apiUpdateList = (handleBuildList) => {
     .catch(error => console.log(error,"error"))
 }
 
-export const apiAddVote = (voteType,user,article,handleAddCon,handleAddLib,handleError,setState,type) => {
-  fetch(`http://localhost:3000/api/v1/add${voteType}`,{
+export const apiAddVote = (user,article,handleError,setState) => {
+  fetch(`http://localhost:3000/api/v1/addvote`,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
@@ -48,14 +48,14 @@ export const apiAddVote = (voteType,user,article,handleAddCon,handleAddLib,handl
   })
   .then(res => res.json())
   .then(res => {
-    res.name=="error" ?
-    (setState({bottomCardMessage:"already voted on",showInfo:false}))
-     :
-    type=="conservative" ?
-    handleAddCon(res) : handleAddLib(res)
+    if(res.name=="error"){
+      setState({
+        bottomCardMessage:"already voted on",showInfo:false
+      })
     handleError()
-    })
-  .catch(err => console.log(err))
+   }
+  })
+  .catch(err => console.log(err,"error in api helper addvote"))
 }
 
 export const apiAddFavorites = (user,article,source,handleResponse,setState,handleError) => {
