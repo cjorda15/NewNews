@@ -14,12 +14,8 @@ class SignUp extends Component {
   }
 
   createUser(input){
-    console.log(input);
-    // input.name=='error'?
-                        // this.setState({error:"user name already taken"})
-                        // :
-                        (this.props.handleAddUser({id:input[0],name:this.state.name}),
-                        this.props.history.replace('/'))
+    this.props.handleAddUser({id:input[0],name:this.state.name})
+    this.props.history.replace('/')
   }
 
   handleClick(){
