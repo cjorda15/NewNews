@@ -9,23 +9,14 @@ import NavBarContainer from './components/NavBar/NavBarContainer'
 import LogInContainer from './components/LogIn/LogInContainer'
 import LogOutContainer from './components/LogOut/LogOutContainer'
 import FavoritesContainer from './components/Favorites/FavoritesContainer'
+import { apiGetNews } from './apiHelper'
 
 class Content extends Component {
     constructor(props){
       super(props)
     }
   componentDidMount(){
-    const endpoint =
-    `https://newsapi.org/v1/articles?source=abc-news-au&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
-
-    fetch(`http://localhost:3000/api/v1/news`)
-      .then(response => response.json()).then(response => this.props.handleBuildList(response))
-
-    fetch(endpoint)
-    .then(resp =>resp.json())
-    .then(data => {const {articles} = data
-      this.props.handleAddArticles(articles)
-    })
+    apiGetNews(this.props.handleBuildList.bind(this),this.props.handleAddArticles.bind(this))
   }
 
 render(){

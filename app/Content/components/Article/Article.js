@@ -31,14 +31,13 @@ class Article extends Component {
       this.handleVote(type)
     }
    apiNewsSource(this.props.useSource,this.updateList.bind(this),type)
- }
+  }
 
   updateList(){
     apiUpdateList(this.props.handleBuildList.bind(this))
   }
 
   handleVote(type){
-
     apiAddVote(this.props.user,this.props.article,this.handleError.bind(this),this.setState.bind(this))
   }
 
@@ -55,11 +54,11 @@ class Article extends Component {
 
   handleDeleteFavorite(){
     apiDeleteFavorties(this.props.user,this.props.article,this.refreshList.bind(this))
- }
+  }
 
   refreshList(){
     apiShowFavorites(this.props.user,this.props.handleShowFavorites.bind(this))
- }
+  }
 
   renderButton(){
     return this.props.btnType==="save" ?
@@ -101,31 +100,38 @@ class Article extends Component {
         className = "top-of-card"
         style={{ backgroundImage: `url(${this.props.article.urlToImage})` }}
       >
-      <div className="card-content">
+       <div className="card-content">
           <span
             className="card-background-container">{this.props.article.title}
           </span>
-        </div>
+       </div>
       </div>
       <div className = "middle-of-card">
-        <a className = "middle-of-card-link" href={this.props.article.url}>link to article</a>
-        <div className = "middle-of-card-button-container">
-        {this.renderButton()}
-          <img
-            onClick={() => this.handleOnClick('conservative')}
-            className= "middle-of-card-img con-img"
-            src={'https://d30y9cdsu7xlg0.cloudfront.net/png/29046-200.png'}
-          />
-          <img
-            onClick={() => this.handleOnClick('liberal')}
-            className= "middle-of-card-img lib-img"
-            src={`https://d30y9cdsu7xlg0.cloudfront.net/png/66721-200.png`}/>
+       <a className = "middle-of-card-link" href={this.props.article.url}>link to article</a>
+      <div className = "middle-of-card-button-container">
+      {this.renderButton()}
+        <img
+          onClick={() => this.handleOnClick('conservative')}
+          className= "middle-of-card-img con-img"
+          src={'https://d30y9cdsu7xlg0.cloudfront.net/png/29046-200.png'}
+        />
+        <img
+          onClick={() => this.handleOnClick('liberal')}
+          className= "middle-of-card-img lib-img"
+          src={`https://d30y9cdsu7xlg0.cloudfront.net/png/66721-200.png`}/>
         </div>
       </div>
       <div className = "bottom-card">
-        <div style={messageStyle} className="bottom-message">{this.bottomMessage()}</div>
+        <div
+         style={messageStyle}
+         className="bottom-message">
+         {this.bottomMessage()}
+        </div>
         <div className="underline-bottom-message"></div>
-        <div className="bottom-card-content">{this.props.article.description}</div>
+        <div
+           className="bottom-card-content">
+          {this.props.article.description}
+        </div>
       </div>
     </article>
   )

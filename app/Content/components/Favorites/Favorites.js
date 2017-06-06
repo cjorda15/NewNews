@@ -14,7 +14,10 @@ class Favorites extends Component {
 
   renderFavorites(){
     if(!this.props.favorites){
-      return <div className="log-in-message-favs">log in or sign up please</div>
+      return <div
+              className="log-in-message-favs">
+              log in or sign up please
+             </div>
     }
     const useSource ={conservative:0, liberal:0}
     return  this.props.favorites.length>0?
@@ -28,7 +31,7 @@ class Favorites extends Component {
                           article={item}
                           btnType={"delete"}/>
                 })
-              :
+                 :
                <div className="no-favorites-message">keeping articles not your thing?</div>
  }
   render(){

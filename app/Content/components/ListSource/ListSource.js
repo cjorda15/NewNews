@@ -111,7 +111,7 @@ return (
       usa-today
     </option>
   </select>
- )
+  )
  }
 }
 

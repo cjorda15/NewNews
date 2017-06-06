@@ -1,6 +1,6 @@
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import ListSourceLib from './ListSourceLib'
-import {addSource} from '../../actions'
+import { addSource } from '../../actions'
 
 const mapStateToProps = (state) => {
   return {

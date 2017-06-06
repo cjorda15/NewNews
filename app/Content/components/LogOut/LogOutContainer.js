@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import LogOut from './Logout'
-import {clearUser, showFavorites} from '../../actions'
+import { clearUser, showFavorites } from '../../actions'
 
 const mapDispatchToProps = (dispatch) => {
   return{
