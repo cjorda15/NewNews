@@ -1,6 +1,6 @@
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import ListCriteria from './ListCriteria'
-import {changeCriteria} from '../../actions'
+import { changeCriteria } from '../../actions'
 
 
 const mapDispatchToProps = (dispatch) => {

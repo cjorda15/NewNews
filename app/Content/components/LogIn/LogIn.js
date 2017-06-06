@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from  './LogIn.css'
-import {apiLogin} from './apiHelper'
+import { apiLogin } from './apiHelper'
 
 class LogIn extends Component {
   constructor(props){

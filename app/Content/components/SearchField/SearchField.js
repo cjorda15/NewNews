@@ -1,9 +1,9 @@
-import React,{Component} from 'react';
+import React,{ Component } from 'react';
 import ListSourceContainer from '../ListSource/ListSourceContainer'
 import ListCriteriaContainer from '../ListCriteria/ListCriteriaContainer'
 import ListSourceConContainer from '../ListSource/ListSourceConContainer'
 import ListSourceLibContainer from '../ListSource/ListSourceLibContainer'
-import {apiBuildList} from './apiHelper'
+import { apiBuildList } from './apiHelper'
 import styles from './SearchField.css'
 
 class SearchField extends Component {

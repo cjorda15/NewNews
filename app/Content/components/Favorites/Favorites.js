@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import ArticleContainer from '../Article/ArticleContainer'
 import styles from './Favorites.css'
-import {apiShowFavorites} from './apiHelper'
+import { apiShowFavorites } from './apiHelper'
 
 class Favorites extends Component {
   constructor(props){

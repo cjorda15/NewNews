@@ -1,6 +1,6 @@
-import {connect} from 'react-redux'
-import {buildList, showFavorties, addArticles} from './actions'
-import React, {Component} from 'react';
+import { connect } from 'react-redux'
+import { buildList, showFavorties, addArticles } from './actions'
+import React, { Component } from 'react';
 import Header  from './components/Header/Header.js'
 import MainContent from './components/MainContent/MainContent'
 import { Route, Link, Switch, Redirect } from 'react-router-dom'

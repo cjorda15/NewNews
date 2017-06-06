@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import List from './List'
-import {addSource} from '../../actions'
+import { addSource } from '../../actions'
 
 
 const mapStateToProps = (state) => {

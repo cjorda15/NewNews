@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import ListSource from './ListSource'
-import {addSource} from '../../actions'
+import { addSource } from '../../actions'
 
 const mapDispatchToProps = (dispatch) => {
   return {

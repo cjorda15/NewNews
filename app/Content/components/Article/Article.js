@@ -23,14 +23,13 @@ class Article extends Component {
   handleOnClick(type){
     if(!this.props.user){
         this.setState({bottomCardMessage:"please log in to vote",showInfo:false})
-          this.handleError()
-          return null
+        this.handleError()
+        return null
     }
 
     if(this.props.user){
       this.handleVote(type)
     }
-
    apiNewsSource(this.props.useSource,this.updateList.bind(this),type)
  }
 

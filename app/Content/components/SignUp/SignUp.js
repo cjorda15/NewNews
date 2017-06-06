@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {apiAddUser} from './apiHelper'
+import { apiAddUser } from './apiHelper'
 import styles from  './SignUp.css'
 
 class SignUp extends Component {
