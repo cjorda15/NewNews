@@ -28,7 +28,7 @@ class SignUp extends Component {
       <div className="signup">
         <input
           type = "text"
-          placeholder = "enter your name"
+          placeholder = "enter your username"
           value = {this.state.name}
           onChange={(e)=>{this.setState({name:e.target.value,error:""})}}/>
         <input

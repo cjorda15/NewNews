@@ -42,9 +42,9 @@ class SearchField extends Component {
       case 'most conservative':
         return <ListSourceConContainer handleNewList={this.handleClick.bind(this)}/>
       case 'most liberal':
-          return <ListSourceLibContainer handleNewList={this.handleClick.bind(this)}/>
+        return <ListSourceLibContainer handleNewList={this.handleClick.bind(this)}/>
       default:
-        return  <ListSourceContainer handleNewList={this.handleClick.bind(this)}/>
+        return <ListSourceContainer handleNewList={this.handleClick.bind(this)}/>
       }
     }
 

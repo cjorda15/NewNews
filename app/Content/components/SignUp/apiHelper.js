@@ -1,4 +1,4 @@
-export const apiAddUser = (name,password,retypePassword,createUser,setState) => {
+export const apiAddUser = (name, password, retypePassword, createUser, setState) => {
   const d     = new Date()
   const month = d.getMonth()+1
   const day   = d.getDate()

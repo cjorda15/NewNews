@@ -1,4 +1,4 @@
-export const apiShowFavorites = (user,handleShowFavorites) => {
+export const apiShowFavorites = (user, handleShowFavorites) => {
 
   fetch(`http://localhost:3000/api/v1/favorites/favs`, {
     method: "POST",
@@ -7,8 +7,9 @@ export const apiShowFavorites = (user,handleShowFavorites) => {
       id: user
     })
   })
-  .then( response => response.json())
-  .then( res => {
+   .then( response => response.json())
+   .then( res => {
     handleShowFavorites({list:res, id: user})
   })
+   .catch( error => console.log(error))
 }

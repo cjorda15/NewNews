@@ -1,4 +1,4 @@
-export const apiLogin = (name,password,handleResponse) => {
+export const apiLogin = (name, password, handleResponse) => {
   const d     = new Date()
   const month = d.getMonth()+1
   const day   = d.getDate()

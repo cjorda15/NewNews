@@ -27,14 +27,9 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 }
 
-
 app.use(express.static(path.join(__dirname, '../app')));
 
 app.get('/', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
-
-
-console.log(`Listening at http://localhost:${port}`);
-
 
 app.get('/api/v1/news', (request, response) => {
   database('news').select()
@@ -160,3 +155,5 @@ app.post('/api/v1/addlib', (request, response) => {
 app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 
 app.listen(port);
+
+console.log(`Listening at http://localhost:${port}`);

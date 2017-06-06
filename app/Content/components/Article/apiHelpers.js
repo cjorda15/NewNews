@@ -1,5 +1,5 @@
 export const apiShowFavorites = (user,handleFunction) => {
-if(user){
+ if(user){
     fetch(`http://localhost:3000/api/v1/favorites/favs`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -46,8 +46,8 @@ export const apiAddVote = (user,article,handleError,setState) => {
       extra_key:user.id+article.title
     })
   })
-  .then(res => res.json())
-  .then(res => {
+   .then(res => res.json())
+   .then(res => {
     if(res.name=="error"){
       setState({
         bottomCardMessage:"already voted on",showInfo:false

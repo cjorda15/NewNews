@@ -7,11 +7,11 @@ const List = ({articles, favorites, user,list,source}) => {
   const renderList = () => {
     let isFavorite;
 
-  const useSource = list.find(article => {
-    if(article.source == source){
-      return article
-       }
-     })
+    const useSource = list.find(article => {
+      if(article.source == source){
+        return article
+         }
+       })
 
     return articles.map((article,index) =>{
       return (
