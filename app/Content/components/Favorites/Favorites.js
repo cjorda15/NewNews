@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ArticleContainer from '../Article/ArticleContainer'
 import styles from './Favorites.css'
+import {apiShowFavorites} from './apiHelper'
 
 class Favorites extends Component {
   constructor(props){
@@ -8,17 +9,7 @@ class Favorites extends Component {
   }
 
   componentWillMount(){
-    fetch(`http://localhost:3000/api/v1/favorites/favs`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        id: this.props.user
-      })
-    })
-    .then( response => response.json())
-    .then( res => {
-      this.props.handleShowFavorites({list:res, id: this.props.user})
-    })
+    apiShowFavorites(this.props.user,this.props.handleShowFavorites.bind(this))
   }
 
   renderFavorites(){
