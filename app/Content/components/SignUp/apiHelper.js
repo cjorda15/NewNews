@@ -9,10 +9,14 @@ export const apiAddUser = (name,password,retypePassword,createUser,setState) => 
     return null
   }
 
-  if(password!==retypePassword){
-    setState({error:"passwords must match"})
+  if(password.length<5){
+    setState({error:"password must be at least 6 characters long"})
     return null
-  }else{
+  }
+
+  password!==retypePassword ?
+    setState({error:"passwords must match"})
+      :
     fetch(`http://localhost:3000/api/v1/user/`,{
       method:"POST",
       headers:{"Content-Type": "application/json"},
@@ -26,5 +30,4 @@ export const apiAddUser = (name,password,retypePassword,createUser,setState) => 
       .then(response => response.json())
       .then(response => createUser(response))
       .catch(setState({error:"user name already taken"}))
-    }
 }

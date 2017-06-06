@@ -12,7 +12,6 @@ class SearchField extends Component {
     this.state = {}
   }
 
-
   handleClick(){
     apiBuildList(this.props.handleBuildList.bind(this),this.addArticles.bind(this))
   }
@@ -21,17 +20,19 @@ class SearchField extends Component {
     const endpoint =
     `https://newsapi.org/v1/articles?source=${this.props.source}&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9`
     fetch(endpoint)
-    .then(resp =>resp.json())
-    .then(data => {
+     .then(resp =>resp.json())
+     .then(data => {
       const {articles} = data
       this.props.handleAddArticles(articles)
     })
+    .catch(error => console.log(error,"error"))
   }
 
   updateList(){
     fetch(`http://localhost:3000/api/v1/news`)
       .then(response => response.json())
       .then(response => this.props.handleBuildList(response))
+      .catch(error => console.log(error,"error"))
   }
 
   listSource(){
@@ -54,7 +55,7 @@ class SearchField extends Component {
         <ListCriteriaContainer handleNewList={this.handleClick.bind(this)}/>
       </div>
       <div className="search-container-list">
-      {this.listSource()}
+       {this.listSource()}
       </div>
     </div>
     )
