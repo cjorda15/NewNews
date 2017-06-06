@@ -120,13 +120,13 @@ app.put('/api/v1/news',(req,res) => {
   })
 })
 
-app.post('/api/v1/user', (request, response) => {
+app.post('/api/v1/user', (request, response, next) => {
   const user = request.body;
   database('user').insert(user,'id')
-   .then(user => {response.send(user)})
-   .then(response => console.log(response))
+   .then(user => { console.log('WOOT', user); response.send(user)})
+  //  .then(response => console.log(response))
    .catch(error => {console.log(error)
-     response.send(error)})
+    next(error)})
 })
 
 app.get('/api/v1/getcon', (request, response) => {
@@ -141,7 +141,7 @@ app.get('/api/v1/getlib', (request, response) => {
   database('liberal').select()
     .then(list => {response.status(200).json(list)})
     .catch(error => {console.error('error: ', error)})
-});
+})
 
 app.post('/api/v1/addcon', (request, response) => {
   const con = request.body;

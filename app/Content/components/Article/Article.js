@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import styles from './Article.css'
 import knex from 'knex'
+import {apiShowFavorites, apiNewsSource, apiUpdateList, apiAddVote, apiAddFavorites,apiDeleteFavorties} from './apiHelpers'
 
 class Article extends Component {
   constructor(props){
@@ -14,18 +15,7 @@ class Article extends Component {
   }
 
   componentWillMount(){
-    if(this.props.user){
-        fetch(`http://localhost:3000/api/v1/favorites/favs`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            id: this.props.user.id
-          })
-        })
-        .then( response => response.json())
-        .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})})
-        .catch(error => console.log(error,"error message"))
-    }
+    apiShowFavorites(this.props.user,this.props.handleShowFavorites)
   }
 
   handleError(){
@@ -45,127 +35,43 @@ class Article extends Component {
 
    type == "conservative"? this.setState({conClicked:true}) :  this.setState({libClicked:true})
 
-   const date =  Date.now()
-
-  fetch(`http://localhost:3000/api/v1/news`, {
-    method: "PUT",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      id: this.props.useSource.id,
-      type: type,
-      updated_at:date
-     })
-   })
-    .then(response => response.json())
-    .then(response => this.updateList())
-    .catch(error => console.log(error,"error message"))
+   apiNewsSource(this.props.useSource,this.updateList.bind(this),type)
  }
 
   updateList(){
-    fetch(`http://localhost:3000/api/v1/news`)
-      .then(response => response.json())
-      .then(response => this.props.handleBuildList(response))
-      .catch(error => console.log(error,"error"))
+    apiUpdateList(this.props.handleBuildList.bind(this))
   }
 
   handleVote(type){
-    const voteType = type == 'conservative' ? "con": "lib"
+    const voteType = type === 'conservative' ? "con": "lib"
 
-    fetch(`http://localhost:3000/api/v1/add${voteType}`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        user_id:this.props.user.id,
-        extra_key:this.props.user.id+this.props.article.title
-      })
-    })
-    .then(res => res.json())
-    .then(res => {
-      res.name=="error" ?
-      (this.setState({bottomCardMessage:"already voted on",showInfo:false}))
-       :
-      type=="conservative" ?
-      this.props.handleAddCon(res) : this.props.handleAddLib(res)
-      this.handleError()
-      })
-    .catch(err => console.log(err))
+    apiAddVote(voteType,this.props.user,this.props.article,this.props.handleAddCon.bind(this),this.props.handleAddLib.bind(this),this.setState.bind(this),type)
   }
 
   handleFavorites(){
-    const key   = this.props.user.id+this.props.article.title
-    const d     = new Date()
-    const month = d.getMonth()+1
-    const day   = d.getDate()
-    const year  = d.getFullYear()
-    this.props.user?
-
-    (this.setState({bottomCardMessage:""}),
-     fetch(`http://localhost:3000/api/v1/favorites`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        title:this.props.article.title,
-        description: this.props.article.description,
-        author:this.props.article.author,
-        source:this.props.source,
-        extra_key:key,
-        beenSaved:false,
-        url: this.props.article.url,
-        img_url:this.props.article.urlToImage,
-        user_id: this.props.user.id,
-        created_at:month+" "+day+" "+year,
-        updated_at:month+" "+day+" "+year
-      })
-    })
-    .then(response => response.json())
-    .then(response => this.handleResponse(response))
-    .catch(error => console.log(error,"error message")))
-     :
-    (this.setState({bottomCardMessage:"Please log in to save a article",showInfo:false}),
-    this.handleError())
+    apiAddFavorites(this.props.user,this.props.article,this.props.source,this.handleResponse.bind(this),this.setState.bind(this),this.handleError.bind(this))
   }
 
   handleResponse(response){
-        response.name=='error'?
-            (this.setState({showInfo:false,bottomCardMessage:"already saved"}),this.handleError())
-            :
-            this.setState({showInfo:true})
+    response.name=='error'?
+        (this.setState({showInfo:false,bottomCardMessage:"already saved"}),this.handleError())
+        :
+        this.setState({showInfo:true})
   }
 
   handleDeleteFavorite(){
-
-    fetch('http://localhost:3000/api/v1/favorites/delete', {
-      method:'DELETE',
-      headers: {'Content-Type':'application/json'},
-      body:JSON.stringify({
-        key: this.props.user.id+this.props.article.title
-      })
-    })
-    .then(response => this.refreshList())
-    .catch(error => console.log(error,"error in delete"))
-}
-
-
-  refreshList(){
-    fetch(`http://localhost:3000/api/v1/favorites/favs`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-       id: this.props.user.id
-      })
-    })
-    .then( response => response.json())
-    .then( res => { this.props.handleShowFavorites({list:res, id: this.props.user.id})})
-    .catch( err => console.log(err,"error in favs update in article"))
+    apiDeleteFavorties(this.props.user,this.props.article,this.refreshList.bind(this))
  }
 
-
+  refreshList(){
+    apiShowFavorites(this.props.user,this.props.handleShowFavorites.bind(this))
+ }
 
   renderButton(){
     return this.props.btnType==="save" ?
             <button
               className="favorite-button"
-               onClick={()=>{this.handleFavorites()}}>
+              onClick={()=>{this.handleFavorites()}}>
                {this.props.btnType}
              </button>
              :
@@ -183,15 +89,6 @@ class Article extends Component {
               this.state.bottomCardMessage
   }
 
-  middleCardImgClass(type){
-    if(type=="conservative"){
-      this.state.conClicked == true?  '.con-img-selected':'con-img'
-    }else{
-      this.state.libClicked == true?  '.lib-img-selected':'lib-img'
-
-    }
-  }
-
   render(){
     const con = this.props.useSource.conservative
     const lib = this.props.useSource.liberal
@@ -203,7 +100,6 @@ class Article extends Component {
       borderRadius: '4px',
       padding: '7px'
     }
-
 
   return(
     <article className = "article">
