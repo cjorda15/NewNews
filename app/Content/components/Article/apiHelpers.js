@@ -48,7 +48,7 @@ export const apiAddVote = (user,article,handleError,setState) => {
   })
    .then(res => res.json())
    .then(res => {
-    if(res.name=="error"){
+     if(res.name=="error"){
       setState({
         bottomCardMessage:"already voted on",showInfo:false
       })
@@ -84,9 +84,9 @@ export const apiAddFavorites = (user,article,source,handleResponse,setState,hand
       updated_at:month+" "+day+" "+year
     })
   })
-  .then(response => response.json())
-  .then(response => handleResponse(response))
-  .catch(error => console.log(error,"error message"))
+    .then(response => response.json())
+    .then(response => handleResponse(response))
+    .catch(error => console.log(error,"error message"))
    :
   (setState({bottomCardMessage:"Please log in to save a article",showInfo:false}),
   handleError())

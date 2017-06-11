@@ -129,14 +129,6 @@ app.get('/api/v1/getvote', (request, response) => {
     .catch(error => {console.error('error: ', error)})
 })
 
-
-
-app.get('/api/v1/getlib', (request, response) => {
-  database('liberal').select()
-    .then(list => {response.status(200).json(list)})
-    .catch(error => {console.error('error: ', error)})
-})
-
 app.post('/api/v1/addvote', (request, response) => {
   const vote = request.body;
   database('votes').insert(vote,'id')
@@ -144,13 +136,6 @@ app.post('/api/v1/addvote', (request, response) => {
    .catch(error => {console.log(error); response.send(error)})
 })
 
-app.post('/api/v1/addlib', (request, response) => {
-  const lib = request.body;
-  database('liberal').insert(lib,'id')
-   .then(user => {response.send(lib)})
-   .catch(error => {console.log(error,'addcon,app error'); response.send(error);
-  })
-})
 
 app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 

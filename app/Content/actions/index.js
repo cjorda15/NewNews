@@ -6,14 +6,14 @@ export const addArticles = (articles) => {
 }
 
 export const showFavorites = (input) => {
-  return{
+  return {
     type:"SHOW_FAVORITES",
     payload:input
   }
 }
 
 export const addFavorite = (input) => {
-  return{
+  return {
     type:'ADD_FAVORITES',
     input
   }
@@ -21,35 +21,35 @@ export const addFavorite = (input) => {
 
 
 export const addSource = (source) => {
-  return{
+  return {
     type:"ADD_SOURCE",
     source
   }
 }
 
 export const changeCriteria = (criteria) => {
-  return{
+  return {
     type:'CHANGE_CRITERIA',
     payload:criteria
   }
 }
 
 export const buildList = (list) => {
-  return{
+  return {
   type:"BUILD_LIST",
   payload:list
   }
 }
 
 export const addUser = (user) => {
-  return{
+  return {
     type:"ADD_USER",
     user
   }
 }
 
 export const clearUser = () => {
-  return{
+  return {
     type:"CLEAR_USER"
   }
 }
