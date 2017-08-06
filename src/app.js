@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 }
 
-app.use("bundle.js",express.static(path.join(__dirname, '../bundle.js')));
+app.use("/bundle.js",express.static(path.join(__dirname, '../bundle.js')));
 
 app.use(express.static(path.join(__dirname, '../app')));
 app.use(express.static(path.join(__dirname, '../app')));
