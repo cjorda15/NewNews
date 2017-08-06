@@ -92288,7 +92288,7 @@
 	  var day = d.getDate();
 	  var year = d.getFullYear();
 	
-	  user ? fetch("http://localhost:3000/api/v1/favorites", {
+	  user ? fetch("/api/v1/favorites", {
 	    method: "POST",
 	    headers: { "Content-Type": "application/json" },
 	    body: JSON.stringify({
@@ -92314,7 +92314,7 @@
 	};
 	
 	var apiDeleteFavorties = exports.apiDeleteFavorties = function apiDeleteFavorties(user, article, refreshList) {
-	  fetch('http://localhost:3000/api/v1/favorites/delete', {
+	  fetch('/api/v1/favorites/delete', {
 	    method: 'DELETE',
 	    headers: { 'Content-Type': 'application/json' },
 	    body: JSON.stringify({
