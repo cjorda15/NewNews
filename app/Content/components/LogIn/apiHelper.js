@@ -4,7 +4,7 @@ export const apiLogin = (name, password, handleResponse) => {
   const day   = d.getDate()
   const year  = d.getFullYear()
 
-  fetch(`http://localhost:3000/api/v1/user/users`,{
+  fetch(`api/v1/user/users`,{
   method:"POST",
   headers:{"Content-Type": "application/json"},
   body:JSON.stringify({

@@ -17,7 +17,7 @@ export const apiAddUser = (name, password, retypePassword, createUser, setState)
   password!==retypePassword ?
     setState({error:"passwords must match"})
       :
-    fetch(`http://localhost:3000/api/v1/user/`,{
+    fetch(`/api/v1/user/`,{
       method:"POST",
       headers:{"Content-Type": "application/json"},
       body:JSON.stringify({

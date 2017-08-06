@@ -30680,7 +30680,7 @@
 	  value: true
 	});
 	var apiBuildList = exports.apiBuildList = function apiBuildList(handleBuildList, addArticles) {
-	  fetch("http://localhost:3000/api/v1/news").then(function (response) {
+	  fetch("/api/v1/news").then(function (response) {
 	    return response.json();
 	  }).then(function (response) {
 	    return handleBuildList(response);
@@ -92212,7 +92212,7 @@
 	});
 	var apiShowFavorites = exports.apiShowFavorites = function apiShowFavorites(user, handleFunction) {
 	  if (user) {
-	    fetch("http://localhost:3000/api/v1/favorites/favs", {
+	    fetch("/api/v1/favorites/favs", {
 	      method: "POST",
 	      headers: { "Content-Type": "application/json" },
 	      body: JSON.stringify({
@@ -92231,7 +92231,7 @@
 	var apiNewsSource = exports.apiNewsSource = function apiNewsSource(useSource, updateList, type) {
 	  var date = Date.now();
 	
-	  fetch("http://localhost:3000/api/v1/news", {
+	  fetch("api/v1/news", {
 	    method: "PUT",
 	    headers: { "Content-Type": "application/json" },
 	    body: JSON.stringify({
@@ -92249,7 +92249,7 @@
 	};
 	
 	var apiUpdateList = exports.apiUpdateList = function apiUpdateList(handleBuildList) {
-	  fetch("http://localhost:3000/api/v1/news").then(function (response) {
+	  fetch("api/v1/news").then(function (response) {
 	    return response.json();
 	  }).then(function (response) {
 	    return handleBuildList(response);
@@ -92259,7 +92259,7 @@
 	};
 	
 	var apiAddVote = exports.apiAddVote = function apiAddVote(user, article, handleError, setState) {
-	  fetch("http://localhost:3000/api/v1/addvote", {
+	  fetch("api/v1/addvote", {
 	    method: "POST",
 	    headers: { "Content-Type": "application/json" },
 	    body: JSON.stringify({
@@ -92541,7 +92541,7 @@
 	    return null;
 	  }
 	
-	  password !== retypePassword ? setState({ error: "passwords must match" }) : fetch("http://localhost:3000/api/v1/user/", {
+	  password !== retypePassword ? setState({ error: "passwords must match" }) : fetch("/api/v1/user/", {
 	    method: "POST",
 	    headers: { "Content-Type": "application/json" },
 	    body: JSON.stringify({
@@ -92934,7 +92934,7 @@
 	  var day = d.getDate();
 	  var year = d.getFullYear();
 	
-	  fetch("http://localhost:3000/api/v1/user/users", {
+	  fetch("api/v1/user/users", {
 	    method: "POST",
 	    headers: { "Content-Type": "application/json" },
 	    body: JSON.stringify({
@@ -93288,7 +93288,7 @@
 	});
 	var apiShowFavorites = exports.apiShowFavorites = function apiShowFavorites(user, handleShowFavorites) {
 	
-	  fetch("http://localhost:3000/api/v1/favorites/favs", {
+	  fetch("/api/v1/favorites/favs", {
 	    method: "POST",
 	    headers: { "Content-Type": "application/json" },
 	    body: JSON.stringify({
@@ -93315,7 +93315,7 @@
 	var apiGetNews = exports.apiGetNews = function apiGetNews(handleBuildList, handleAddArticles) {
 	  var endpoint = "https://newsapi.org/v1/articles?source=abc-news-au&sortBy=top&apiKey=f70d7cc4b6fe40b3bd3b8d246eed13f9";
 	
-	  fetch("http://localhost:3000/api/v1/news").then(function (response) {
+	  fetch("/api/v1/news").then(function (response) {
 	    return response.json();
 	  }).then(function (response) {
 	    return handleBuildList(response);

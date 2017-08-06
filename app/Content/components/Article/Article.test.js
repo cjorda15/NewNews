@@ -14,7 +14,7 @@ describe('Article test', () => {
   }
 
   const mockCalls = () => {
-    fetchMock.post('http://localhost:3000/api/v1/favorites', {
+    fetchMock.post('api/v1/favorites', {
       status: 200,
       ok: true,
       body: favResponse
@@ -117,7 +117,7 @@ describe('Article test', () => {
  })
  it('should make a api to log political votes on news source for conservatives', () => {
    const mockCallsLib = () => {
-     fetchMock.put('http://localhost:3000/api/v1/news', {
+     fetchMock.put('/api/v1/news', {
        status: 200,
        ok: true,
        body: favResponse

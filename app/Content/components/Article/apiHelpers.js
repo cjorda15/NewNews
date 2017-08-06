@@ -1,6 +1,6 @@
 export const apiShowFavorites = (user,handleFunction) => {
  if(user){
-    fetch(`http://localhost:3000/api/v1/favorites/favs`, {
+    fetch(`/api/v1/favorites/favs`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
@@ -16,7 +16,7 @@ export const apiShowFavorites = (user,handleFunction) => {
 export const apiNewsSource = (useSource,updateList,type) => {
   const date =  Date.now()
 
-  fetch(`http://localhost:3000/api/v1/news`, {
+  fetch(`api/v1/news`, {
     method: "PUT",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -31,14 +31,14 @@ export const apiNewsSource = (useSource,updateList,type) => {
 }
 
 export const apiUpdateList = (handleBuildList) => {
-  fetch(`http://localhost:3000/api/v1/news`)
+  fetch(`api/v1/news`)
     .then(response => response.json())
     .then(response => handleBuildList(response))
     .catch(error => console.log(error,"error"))
 }
 
 export const apiAddVote = (user,article,handleError,setState) => {
-  fetch(`http://localhost:3000/api/v1/addvote`,{
+  fetch(`api/v1/addvote`,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
