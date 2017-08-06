@@ -28,8 +28,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(express.static(path.join(__dirname, '../app')));
+app.use(express.static(path.join(__dirname, '../app')));
 
-app.get('/', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 
 app.get('/api/v1/news', (request, response) => {
   database('news').select()
@@ -135,6 +135,8 @@ app.post('/api/v1/addvote', (request, response) => {
    .then(user => {response.json(vote)})
    .catch(error => {console.log(error); response.send(error)})
 })
+
+app.get('/', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 
 
 app.get('/*', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
